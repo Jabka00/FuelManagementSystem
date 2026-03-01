@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.fuelmanagement.controller.MainController"
+            style="-fx-background-color: #F5FAFB;">
+
+    <top>
+        <!-- Навігаційна панель -->
+        <HBox alignment="CENTER_LEFT" spacing="12.0"
+              style="-fx-background-color: #238A90; -fx-padding: 14 24;">
+            <children>
+                <Button fx:id="btnBackToMenu" onAction="#handleBackToMenu"
+                        text="← Назад до меню"
+                        style="-fx-background-color: transparent;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-font-size: 14px;
+                               -fx-background-radius: 8;
+                               -fx-border-color: rgba(255,255,255,0.4);
+                               -fx-border-width: 1.5;
+                               -fx-border-radius: 8;
+                               -fx-padding: 8 16;
+                               -fx-cursor: hand;" />
+                <Button fx:id="btnSpecialTrip" onAction="#handleSpecialTrip"
+                        text="Спеціальна поїздка"
+                        style="-fx-background-color: rgba(255,255,255,0.15);
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-font-size: 13px;
+                               -fx-background-radius: 6;
+                               -fx-border-color: rgba(255,255,255,0.3);
+                               -fx-border-radius: 6;
+                               -fx-padding: 8 16;
+                               -fx-cursor: hand;" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnTestDB" onAction="#testDatabaseConnection" text="Тест БД"
+                        style="-fx-background-color: transparent;
+                               -fx-text-fill: rgba(255,255,255,0.8);
+                               -fx-font-size: 12px;
+                               -fx-background-radius: 6;
+                               -fx-border-color: rgba(255,255,255,0.2);
+                               -fx-border-radius: 6;
+                               -fx-padding: 6 12;
+                               -fx-cursor: hand;" />
+            </children>
+        </HBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true"
+                    style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-width: 0;">
+            <content>
+                <VBox spacing="16.0" style="-fx-background-color: transparent;">
+                    <padding>
+                        <Insets bottom="16.0" left="24.0" right="24.0" top="20.0" />
+                    </padding>
+
+                    <!-- Панель заявок з пошти -->
+                    <VBox spacing="12.0"
+                          style="-fx-background-color: white;
+                                 -fx-background-radius: 12;
+                                 -fx-padding: 20;
+                                 -fx-effect: dropshadow(gaussian, rgba(26, 107, 112, 0.08), 10, 0, 0, 2);">
+                        <children>
+                            <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                <children>
+                                    <Label text="Заявки з пошти"
+                                           style="-fx-font-weight: bold; -fx-font-size: 17px; -fx-text-fill: #238A90;" />
+                                    <Region HBox.hgrow="ALWAYS" />
+                                    <ProgressIndicator fx:id="progressEmail" prefHeight="22.0" prefWidth="22.0" visible="false" />
+                                    <Button fx:id="btnCheckEmail" onAction="#handleCheckEmail" text="Перевірити пошту"
+                                            style="-fx-background-color: #238A90;
+                                                   -fx-text-fill: white;
+                                                   -fx-font-weight: bold;
+                                                   -fx-font-size: 13px;
+                                                   -fx-background-radius: 8;
+                                                   -fx-padding: 10 20;
+                                                   -fx-cursor: hand;" />
+                                </children>
+                            </HBox>
+
+                            <!-- Hidden TextArea for compatibility -->
+                            <TextArea fx:id="txtEmailStatus" visible="false" managed="false" />
+
+                            <TableView fx:id="tblParsedEmails" prefHeight="450.0" minHeight="350.0" maxHeight="600.0"
+                                       style="-fx-background-color: white;
+                                              -fx-background-radius: 8;
+                                              -fx-border-color: #E8F0F1;
+                                              -fx-border-radius: 8;">
+                                <columns>
+                                    <TableColumn fx:id="colEmailStatus" prefWidth="90.0" text="Статус" style="-fx-alignment: CENTER;" />
+                                    <TableColumn fx:id="colRequesterName" prefWidth="175.0" text="ПІБ замовника" />
+                                    <TableColumn fx:id="colRequesterPhone" prefWidth="115.0" text="Телефон" />
+                                    <TableColumn fx:id="colTripType" prefWidth="95.0" text="Тип поїздки" />
+                                    <TableColumn fx:id="colStartAddress" prefWidth="220.0" text="Початкова адреса" />
+                                    <TableColumn fx:id="colEndAddress" prefWidth="220.0" text="Кінцева адреса" />
+                                    <TableColumn fx:id="colStartTime" prefWidth="130.0" text="Дата/час початку" />
+                                    <TableColumn fx:id="colPurpose" prefWidth="255.0" text="Мета поїздки" />
+                                </columns>
+                            </TableView>
+                        </children>
+                    </VBox>
+
+                    <!-- Основна форма -->
+                    <VBox spacing="20.0"
+                          style="-fx-background-color: white;
+                                 -fx-background-radius: 12;
+                                 -fx-padding: 24;
+                                 -fx-effect: dropshadow(gaussian, rgba(26, 107, 112, 0.08), 10, 0, 0, 2);">
+                        <children>
+                            <!-- Заголовок форми -->
+                            <Label text="Деталі поїздки"
+                                   style="-fx-font-weight: bold; -fx-font-size: 18px; -fx-text-fill: #238A90;" />
+
+                            <!-- Інформація про замовника -->
+                            <VBox spacing="12.0"
+                                  style="-fx-background-color: #F8FBFB;
+                                         -fx-background-radius: 10;
+                                         -fx-padding: 16;
+                                         -fx-border-color: #E8F0F1;
+                                         -fx-border-radius: 10;">
+                                <children>
+                                    <Label text="Інформація про замовника"
+                                           style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #238A90;" />
+
+                                    <GridPane hgap="16.0" vgap="10.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="80.0" />
+                                            <ColumnConstraints hgrow="ALWAYS" minWidth="180.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="80.0" />
+                                            <ColumnConstraints hgrow="ALWAYS" minWidth="180.0" />
+                                        </columnConstraints>
+
+                                        <Label text="ПІБ:" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                               style="-fx-text-fill: #4A7C7F;" />
+                                        <TextField fx:id="txtRequesterName" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                                   promptText="Автоматично з email"
+                                                   style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #D0E0E2; -fx-border-radius: 6;" />
+
+                                        <Label text="Email:" GridPane.columnIndex="2" GridPane.rowIndex="0"
+                                               style="-fx-text-fill: #4A7C7F;" />
+                                        <TextField fx:id="txtRequesterEmail" GridPane.columnIndex="3" GridPane.rowIndex="0"
+                                                   promptText="Автоматично з email"
+                                                   style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #D0E0E2; -fx-border-radius: 6;" />
+
+                                        <Label text="Телефон:" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                                               style="-fx-text-fill: #4A7C7F;" />
+                                        <TextField fx:id="txtRequesterPhone" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                                                   promptText="Автоматично з email"
+                                                   style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #D0E0E2; -fx-border-radius: 6;" />
+                                    </GridPane>
+                                </children>
+                            </VBox>
+
+                            <!-- Автомобіль та водій -->
+                            <VBox spacing="12.0"
+                                  style="-fx-background-color: #F8FBFB;
+                                         -fx-background-radius: 10;
+                                         -fx-padding: 16;
+                                         -fx-border-color: #E8F0F1;
+                                         -fx-border-radius: 10;">
+                                <children>
+                                    <Label text="Автомобіль та водій"
+                                           style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #238A90;" />
+
+                                    <GridPane hgap="16.0" vgap="10.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="90.0" />
+                                            <ColumnConstraints hgrow="ALWAYS" minWidth="220.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="60.0" />
+                                            <ColumnConstraints hgrow="ALWAYS" minWidth="220.0" />
+                                        </columnConstraints>
+
+                                        <Label text="Автомобіль:" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                               style="-fx-text-fill: #4A7C7F;" />
+                                        <ComboBox fx:id="cmbVehicle" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                                  promptText="Оберіть автомобіль"
+                                                  style="-fx-background-color: white; -fx-background-radius: 6;" />
+
+                                        <Label text="Водій:" GridPane.columnIndex="2" GridPane.rowIndex="0"
+                                               style="-fx-text-fill: #4A7C7F;" />
+                                        <ComboBox fx:id="cmbDriver" prefWidth="220.0" GridPane.columnIndex="3" GridPane.rowIndex="0"
+                                                  promptText="Оберіть водія"
+                                                  style="-fx-background-color: white; -fx-background-radius: 6;" />
+                                    </GridPane>
+                                </children>
+                            </VBox>
+
+                            <!-- Холодильник -->
+                            <VBox fx:id="refrigeratorPanel" spacing="12.0"
+                                  style="-fx-background-color: #F8FBFB;
+                                         -fx-background-radius: 10;
+                                         -fx-padding: 16;
+                                         -fx-border-color: #E8F0F1;
+                                         -fx-border-radius: 10;"
+                                  visible="false" managed="false">
+                                <children>
+                                    <Label text="Холодильник"
+                                           style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #238A90;" />
+                                    
+                                    <GridPane hgap="16.0" vgap="10.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="150.0" />
+                                            <ColumnConstraints hgrow="ALWAYS" minWidth="250.0" />
+                                        </columnConstraints>
+
+                                        <CheckBox fx:id="chkRefrigeratorEnabled" text="Холодильник увімкнений"
+                                                  GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"
+                                                  style="-fx-text-fill: #238A90; -fx-font-size: 13px;" />
+
+                                        <Label fx:id="lblRefrigeratorPercent" text="Відсоток використання (%):" 
+                                               GridPane.columnIndex="0" GridPane.rowIndex="1"
+                                               style="-fx-text-fill: #4A7C7F;"
+                                               visible="false" managed="false" />
+                                        <HBox spacing="10.0" alignment="CENTER_LEFT" 
+                                              fx:id="hboxRefrigeratorPercent"
+                                              GridPane.columnIndex="1" GridPane.rowIndex="1"
+                                              visible="false" managed="false">
+                                            <children>
+                                                <TextField fx:id="txtRefrigeratorPercent" prefWidth="80.0" text="100"
+                                                          promptText="0-100"
+                                                          style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #D0E0E2; -fx-border-radius: 6;" />
+                                                <Label style="-fx-text-fill: #4A7C7F;">
+                                                    <text>%</text>
+                                                </Label>
+                                                <Label fx:id="lblRefrigeratorHint" 
+                                                      style="-fx-font-size: 11px; -fx-text-fill: #7A9A9D;">
+                                                    <text>100% = весь маршрут</text>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                    </GridPane>
+                                </children>
+                            </VBox>
+
+                            <!-- Маршрут -->
+                            <VBox spacing="12.0"
+                                  style="-fx-background-color: #F8FBFB;
+                                         -fx-background-radius: 10;
+                                         -fx-padding: 16;
+                                         -fx-border-color: #E8F0F1;
+                                         -fx-border-radius: 10;">
+                                <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                        <children>
+                                            <Label text="Маршрут"
+                                                   style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #238A90;" />
+                                            <Region HBox.hgrow="ALWAYS" />
+                                            <Button fx:id="btnCalculateRoute" onAction="#handleCalculateRoute" text="Розрахувати"
+                                                    style="-fx-background-color: #238A90;
+                                                           -fx-text-fill: white;
+                                                           -fx-font-weight: bold;
+                                                           -fx-font-size: 12px;
+                                                           -fx-background-radius: 6;
+                                                           -fx-padding: 8 16;
+                                                           -fx-cursor: hand;" />
+                                        </children>
+                                    </HBox>
+
+                                    <GridPane hgap="16.0" vgap="10.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="120.0" />
+                                            <ColumnConstraints hgrow="ALWAYS" minWidth="250.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="90.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="140.0" />
+                                        </columnConstraints>
+
+                                        <Label text="Початкова адреса:" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                               style="-fx-text-fill: #4A7C7F;" />
+                                        <TextField fx:id="txtStartAddress" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                                   promptText="Автоматично з email"
+                                                   style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #D0E0E2; -fx-border-radius: 6;" />
+
+                                        <Label text="Тип поїздки:" GridPane.columnIndex="2" GridPane.rowIndex="0"
+                                               style="-fx-text-fill: #4A7C7F;" />
+                                        <ComboBox fx:id="cmbTripType" prefWidth="140.0" GridPane.columnIndex="3" GridPane.rowIndex="0"
+                                                  style="-fx-background-color: white; -fx-background-radius: 6;" />
+
+                                        <Label text="Кінцева адреса:" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                                               style="-fx-text-fill: #4A7C7F;" />
+                                        <TextField fx:id="txtEndAddress" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                                                   promptText="Автоматично з email"
+                                                   style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #D0E0E2; -fx-border-radius: 6;" />
+                                    </GridPane>
+                                </children>
+                            </VBox>
+
+                            <!-- Проміжні точки -->
+                            <VBox spacing="12.0"
+                                  style="-fx-background-color: #F8FBFB;
+                                         -fx-background-radius: 10;
+                                         -fx-padding: 16;
+                                         -fx-border-color: #E8F0F1;
+                                         -fx-border-radius: 10;">
+                                <children>
+                                    <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                        <children>
+                                            <Label text="Проміжні точки"
+                                                   style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #238A90;" />
+                                            <Region HBox.hgrow="ALWAYS" />
+                                            <Button fx:id="btnAddWaypoint" onAction="#handleAddWaypoint" text="+ Додати точку"
+                                                    style="-fx-background-color: #238A90;
+                                                           -fx-text-fill: white;
+                                                           -fx-font-weight: bold;
+                                                           -fx-font-size: 12px;
+                                                           -fx-background-radius: 6;
+                                                           -fx-padding: 8 16;
+                                                           -fx-cursor: hand;" />
+                                        </children>
+                                    </HBox>
+
+                                    <TableView fx:id="tblWaypoints" prefHeight="280.0" minHeight="200.0" maxHeight="400.0"
+                                               style="-fx-background-color: white;
+                                                      -fx-background-radius: 6;
+                                                      -fx-border-color: #E8F0F1;
+                                                      -fx-border-radius: 6;">
+                                        <columns>
+                                            <TableColumn fx:id="colWaypointOrder" prefWidth="50.0" text="№" />
+                                            <TableColumn fx:id="colWaypointAddress" prefWidth="350.0" text="Адреса" />
+                                            <TableColumn fx:id="colWaypointDescription" prefWidth="180.0" text="Опис" />
+                                            <TableColumn fx:id="colWaypointStopTime" prefWidth="100.0" text="Час зупинки" />
+                                            <TableColumn fx:id="colWaypointActions" prefWidth="80.0" text="Дії" />
+                                        </columns>
+                                    </TableView>
+                                </children>
+                            </VBox>
+
+                            <!-- Розрахунок витрат -->
+                            <VBox spacing="12.0" minHeight="250.0"
+                                  style="-fx-background-color: #F8FBFB;
+                                         -fx-background-radius: 10;
+                                         -fx-padding: 16;
+                                         -fx-border-color: #E8F0F1;
+                                         -fx-border-radius: 10;">
+                                <children>
+                                    <Label text="Розрахунок витрат палива"
+                                           style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #238A90;" />
+                                    <TextArea fx:id="txtRouteInfo" editable="false" prefHeight="200.0" minHeight="170.0" wrapText="true"
+                                              VBox.vgrow="ALWAYS"
+                                              style="-fx-font-family: 'SF Mono', 'Consolas', monospace;
+                                                     -fx-font-size: 12px;
+                                                     -fx-background-color: white;
+                                                     -fx-background-radius: 6;
+                                                     -fx-border-color: #D0E0E2;
+                                                     -fx-border-radius: 6;" />
+                                    <Label text="Витрати = (Пробіг_місто × Норма_місто) + (Пробіг_траса × Норма_траса)"
+                                           style="-fx-font-size: 11px; -fx-text-fill: #7A9A9D;" />
+                                </children>
+                            </VBox>
+
+                            <!-- Час поїздки -->
+                            <VBox spacing="12.0"
+                                  style="-fx-background-color: #F8FBFB;
+                                         -fx-background-radius: 10;
+                                         -fx-padding: 16;
+                                         -fx-border-color: #E8F0F1;
+                                         -fx-border-radius: 10;">
+                                <children>
+                                    <Label text="Час поїздки"
+                                           style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #238A90;" />
+
+                                    <GridPane hgap="12.0" vgap="10.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="90.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="130.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="40.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="65.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="65.0" />
+                                            <ColumnConstraints hgrow="ALWAYS" minWidth="30.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="80.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="130.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="40.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="65.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="65.0" />
+                                        </columnConstraints>
+
+                                        <Label text="Дата початку:" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                               style="-fx-text-fill: #4A7C7F;" />
+                                        <DatePicker fx:id="dpStartDate" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                                    style="-fx-background-color: white; -fx-background-radius: 6;" />
+
+                                        <Label text="Час:" GridPane.columnIndex="2" GridPane.rowIndex="0"
+                                               style="-fx-text-fill: #4A7C7F;" />
+                                        <ComboBox fx:id="cmbStartHour" prefWidth="65.0" GridPane.columnIndex="3" GridPane.rowIndex="0"
+                                                  promptText="Год"
+                                                  style="-fx-background-color: white; -fx-background-radius: 6;" />
+                                        <Label text=":" GridPane.columnIndex="4" GridPane.rowIndex="0"
+                                               style="-fx-text-fill: #4A7C7F; -fx-alignment: center;" />
+                                        <ComboBox fx:id="cmbStartMinute" prefWidth="65.0" GridPane.columnIndex="5" GridPane.rowIndex="0"
+                                                  promptText="Хв"
+                                                  style="-fx-background-color: white; -fx-background-radius: 6;" />
+
+                                        <Label text="Дата кінця:" GridPane.columnIndex="7" GridPane.rowIndex="0"
+                                               style="-fx-text-fill: #4A7C7F;" />
+                                        <DatePicker fx:id="dpEndDate" GridPane.columnIndex="8" GridPane.rowIndex="0"
+                                                    style="-fx-background-color: white; -fx-background-radius: 6;" />
+
+                                        <Label text="Час:" GridPane.columnIndex="9" GridPane.rowIndex="0"
+                                               style="-fx-text-fill: #4A7C7F;" />
+                                        <ComboBox fx:id="cmbEndHour" prefWidth="65.0" GridPane.columnIndex="10" GridPane.rowIndex="0"
+                                                  promptText="Год"
+                                                  style="-fx-background-color: white; -fx-background-radius: 6;" />
+                                        <Label text=":" GridPane.columnIndex="11" GridPane.rowIndex="0"
+                                               style="-fx-text-fill: #4A7C7F; -fx-alignment: center;" />
+                                        <ComboBox fx:id="cmbEndMinute" prefWidth="65.0" GridPane.columnIndex="12" GridPane.rowIndex="0"
+                                                  promptText="Хв"
+                                                  style="-fx-background-color: white; -fx-background-radius: 6;" />
+                                    </GridPane>
+                                </children>
+                            </VBox>
+
+                            <!-- Додаткова інформація -->
+                            <VBox spacing="12.0"
+                                  style="-fx-background-color: #F8FBFB;
+                                         -fx-background-radius: 10;
+                                         -fx-padding: 16;
+                                         -fx-border-color: #E8F0F1;
+                                         -fx-border-radius: 10;">
+                                <children>
+                                    <Label text="Додаткова інформація"
+                                           style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #238A90;" />
+
+                                    <GridPane hgap="16.0" vgap="10.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="110.0" />
+                                            <ColumnConstraints hgrow="ALWAYS" minWidth="300.0" />
+                                        </columnConstraints>
+
+                                        <Label text="Мета поїздки:" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                               style="-fx-text-fill: #4A7C7F;" />
+                                        <TextArea fx:id="txtPurpose" prefHeight="60.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                                  promptText="Автоматично з email"
+                                                  style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #D0E0E2; -fx-border-radius: 6;" />
+
+                                        <Label text="Довіреність на:" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                                               style="-fx-text-fill: #4A7C7F;" />
+                                        <TextField fx:id="txtPowerOfAttorney" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                                                   promptText="Автоматично з email"
+                                                   style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #D0E0E2; -fx-border-radius: 6;" />
+
+                                        <CheckBox fx:id="chkCanDriverDeliver" text="Водій може сам завезти вантаж"
+                                                  GridPane.columnIndex="1" GridPane.rowIndex="2"
+                                                  style="-fx-text-fill: #238A90;" />
+                                    </GridPane>
+                                </children>
+                            </VBox>
+
+                            <!-- Кнопки дій -->
+                            <HBox alignment="CENTER" spacing="16.0" style="-fx-padding: 8 0 0 0;">
+                                <children>
+                                    <Button fx:id="btnCreateTrip" onAction="#handleCreateTrip"
+                                            text="Створити поїздку" minWidth="180.0" minHeight="44.0"
+                                            style="-fx-background-color: #238A90;
+                                                   -fx-text-fill: white;
+                                                   -fx-font-weight: bold;
+                                                   -fx-font-size: 14px;
+                                                   -fx-background-radius: 8;
+                                                   -fx-cursor: hand;" />
+                                    <Button fx:id="btnClearForm" onAction="#handleClearForm"
+                                            text="Очистити форму" minWidth="140.0" minHeight="44.0"
+                                            style="-fx-background-color: white;
+                                                   -fx-text-fill: #238A90;
+                                                   -fx-font-weight: bold;
+                                                   -fx-font-size: 14px;
+                                                   -fx-background-radius: 8;
+                                                   -fx-border-color: #238A90;
+                                                   -fx-border-width: 1.5;
+                                                   -fx-border-radius: 8;
+                                                   -fx-cursor: hand;" />
+                                </children>
+                            </HBox>
+                        </children>
+                    </VBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <!-- Згортуваний лог -->
+        <TitledPane text="Лог системи" expanded="false" animated="true"
+                    style="-fx-background-color: white;
+                           -fx-font-weight: bold;
+                           -fx-text-fill: #238A90;">
+            <content>
+                <TextArea fx:id="logArea" editable="false" prefHeight="100.0" wrapText="true"
+                          style="-fx-font-family: 'SF Mono', 'Consolas', monospace;
+                                 -fx-font-size: 11px;
+                                 -fx-background-color: #FAFCFC;
+                                 -fx-border-color: #E8F0F1;
+                                 -fx-border-radius: 4;" />
+            </content>
+        </TitledPane>
+    </bottom>
+</BorderPane>

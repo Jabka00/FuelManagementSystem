@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="org.example.fuelmanagement.controller.SpecialTripDialogController"
+      style="-fx-background-color: linear-gradient(to bottom, #F5F9FA, #FFFFFF);">
+    
+    <!-- Заголовок -->
+    <HBox alignment="CENTER" 
+          style="-fx-background-color: linear-gradient(to right, #238A90, #238A90); 
+                 -fx-padding: 18;">
+        <children>
+            <Label text="🏭 Спеціальна поїздка" 
+                   textFill="WHITE"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+        </children>
+    </HBox>
+
+    <!-- ScrollPane для контенту -->
+    <ScrollPane fitToWidth="true" 
+                VBox.vgrow="ALWAYS"
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED"
+                style="-fx-background-color: transparent; 
+                       -fx-background: transparent;
+                       -fx-border-color: transparent;
+                       -fx-padding: 0;">
+        <content>
+            <VBox spacing="15.0" style="-fx-background-color: transparent;">
+                <padding>
+                    <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />
+                </padding>
+
+                <!-- Вибір типу -->
+                <VBox spacing="12.0" 
+                      style="-fx-background-color: white; 
+                             -fx-background-radius: 12; 
+                             -fx-padding: 18;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 2);">
+                    <children>
+                        <Label text="Тип спеціальної роботи:" 
+                               style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #238A90;" />
+                        
+                        <Label text="(Можна вибрати обидва варіанти)" 
+                               style="-fx-font-size: 11px; -fx-text-fill: #757575; -fx-font-style: italic; -fx-padding: 0 0 8 0;" />
+                        
+                        <VBox spacing="8.0">
+                            <children>
+                                <CheckBox fx:id="chkFactoryGround" 
+                                         text="🏭 Робота на території заводу (рух по території)" 
+                                         selected="true"
+                                         style="-fx-font-size: 13px; -fx-text-fill: #333;" />
+                                
+                                <CheckBox fx:id="chkIdleWork" 
+                                         text="⏱ Робота на холостому ході (двигун увімкнений, машина стоїть)" 
+                                         style="-fx-font-size: 13px; -fx-text-fill: #333;" />
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+
+                <!-- Вибір транспорту -->
+                <VBox spacing="12.0" 
+                      style="-fx-background-color: white; 
+                             -fx-background-radius: 12; 
+                             -fx-padding: 18;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 2);">
+                    <children>
+                        <Label text="Транспортний засіб:" 
+                               style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #238A90;" />
+                        <ComboBox fx:id="cmbVehicle" 
+                                 promptText="Виберіть автомобіль" 
+                                 maxWidth="Infinity"
+                                 style="-fx-font-size: 13px; -fx-background-radius: 6;" />
+                        
+                        <Label text="Водій:" 
+                               style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #238A90; -fx-padding: 12 0 0 0;" />
+                        <ComboBox fx:id="cmbDriver" 
+                                 promptText="Виберіть водія (необов'язково)" 
+                                 maxWidth="Infinity"
+                                 style="-fx-font-size: 13px; -fx-background-radius: 6;" />
+                    </children>
+                </VBox>
+
+                <!-- Параметри для роботи на території -->
+                <VBox fx:id="pnlFactoryGround" spacing="12.0" 
+                      style="-fx-background-color: white; 
+                             -fx-background-radius: 12; 
+                             -fx-padding: 18;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 2);">
+                    <children>
+                        <Label text="🏭 Параметри роботи на території:" 
+                               style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #238A90;" />
+                        
+                        <GridPane hgap="12.0" vgap="8.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="120.0" />
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" />
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" />
+                            </columnConstraints>
+                            <children>
+                                <Label text="Відстань (км):" 
+                                       GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                       style="-fx-font-size: 13px; -fx-text-fill: #555;" />
+                                <TextField fx:id="txtDistance" 
+                                          promptText="напр. 5" 
+                                          GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                          style="-fx-font-size: 13px; -fx-background-radius: 6;" />
+                                <Label text="(рух по території)" 
+                                       GridPane.columnIndex="2" GridPane.rowIndex="0"
+                                       style="-fx-font-size: 11px; -fx-text-fill: #757575;" />
+                            </children>
+                        </GridPane>
+                    </children>
+                </VBox>
+
+                <!-- Параметри для холостого ходу -->
+                <VBox fx:id="pnlIdleWork" spacing="12.0" 
+                      visible="false"
+                      managed="false"
+                      style="-fx-background-color: white; 
+                             -fx-background-radius: 12; 
+                             -fx-padding: 18;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 2);">
+                    <children>
+                        <Label text="⏱ Параметри роботи на холостому ході:" 
+                               style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #238A90;" />
+                        
+                        <GridPane hgap="12.0" vgap="8.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="120.0" />
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" />
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" />
+                            </columnConstraints>
+                            <children>
+                                <Label text="Час роботи (хв):" 
+                                       GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                       style="-fx-font-size: 13px; -fx-text-fill: #555;" />
+                                <TextField fx:id="txtIdleMinutes" 
+                                          promptText="напр. 120" 
+                                          GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                          style="-fx-font-size: 13px; -fx-background-radius: 6;" />
+                                <Label text="(стоянка з увімкненим двигуном)" 
+                                       GridPane.columnIndex="2" GridPane.rowIndex="0"
+                                       style="-fx-font-size: 11px; -fx-text-fill: #757575;" />
+                            </children>
+                        </GridPane>
+                    </children>
+                </VBox>
+                
+                <!-- Загальний час роботи -->
+                <VBox fx:id="pnlTotalTime" spacing="12.0" 
+                      visible="false"
+                      managed="false"
+                      style="-fx-background-color: white; 
+                             -fx-background-radius: 12; 
+                             -fx-padding: 18;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 2);">
+                    <children>
+                        <Label text="⏰ Загальний час роботи:" 
+                               style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #238A90;" />
+                        
+                        <GridPane hgap="12.0" vgap="8.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="120.0" />
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" />
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="200.0" />
+                            </columnConstraints>
+                            <children>
+                                <Label text="Час (хв):" 
+                                       GridPane.columnIndex="0" GridPane.rowIndex="0"
+                                       style="-fx-font-size: 13px; -fx-text-fill: #555;" />
+                                <TextField fx:id="txtTotalTimeMinutes" 
+                                          promptText="напр. 120" 
+                                          GridPane.columnIndex="1" GridPane.rowIndex="0"
+                                          style="-fx-font-size: 13px; -fx-background-radius: 6;" />
+                                <Label text="(загальна тривалість роботи)" 
+                                       GridPane.columnIndex="2" GridPane.rowIndex="0"
+                                       style="-fx-font-size: 11px; -fx-text-fill: #757575;" />
+                            </children>
+                        </GridPane>
+                    </children>
+                </VBox>
+
+                <!-- Примітки -->
+                <VBox spacing="12.0" 
+                      style="-fx-background-color: white; 
+                             -fx-background-radius: 12; 
+                             -fx-padding: 18;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 2);">
+                    <children>
+                        <Label text="Примітки:" 
+                               style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #238A90;" />
+                        <TextArea fx:id="txtNotes" 
+                                 promptText="Додаткова інформація про роботу..."
+                                 prefRowCount="3"
+                                 wrapText="true"
+                                 style="-fx-font-size: 13px; 
+                                        -fx-background-radius: 6;
+                                        -fx-border-radius: 6;" />
+                    </children>
+                </VBox>
+
+                <!-- Розрахунок палива -->
+                <VBox spacing="12.0" 
+                      style="-fx-background-color: #E8F5F6; 
+                             -fx-background-radius: 12; 
+                             -fx-padding: 18;
+                             -fx-border-color: #238A90;
+                             -fx-border-width: 2;
+                             -fx-border-radius: 12;">
+                    <children>
+                        <Label text="💧 Розрахунок витрат палива:" 
+                               style="-fx-font-weight: bold; -fx-font-size: 15px; -fx-text-fill: #238A90;" />
+                        <TextArea fx:id="txtFuelCalculation" 
+                                 editable="false"
+                                 prefRowCount="4"
+                                 wrapText="true"
+                                 style="-fx-font-size: 12px; 
+                                        -fx-background-color: white;
+                                        -fx-border-color: #B0E0E6;
+                                        -fx-border-radius: 6;
+                                        -fx-background-radius: 6;" />
+                        <Button fx:id="btnCalculateFuel" 
+                               text=" Розрахувати витрати" 
+                               onAction="#handleCalculateFuel"
+                               maxWidth="Infinity"
+                               style="-fx-background-color: #238A90; 
+                                      -fx-text-fill: white; 
+                                      -fx-font-weight: bold;
+                                      -fx-background-radius: 8; 
+                                      -fx-padding: 10;
+                                      -fx-cursor: hand;" />
+                    </children>
+                </VBox>
+            </VBox>
+        </content>
+    </ScrollPane>
+
+    <!-- Кнопки (завжди видимі внизу) -->
+    <HBox spacing="12.0" alignment="CENTER" 
+          style="-fx-background-color: rgba(245, 249, 250, 0.95); 
+                 -fx-padding: 18;
+                 -fx-border-color: #E0E0E0;
+                 -fx-border-width: 1 0 0 0;">
+        <children>
+            <Button fx:id="btnSave" 
+                   text="Створити поїздку" 
+                   onAction="#handleSave"
+                   minWidth="180.0"
+                   style="-fx-background-color: linear-gradient(to bottom, #238A90, #238A90); 
+                          -fx-text-fill: white; 
+                          -fx-font-weight: bold;
+                          -fx-font-size: 14px;
+                          -fx-background-radius: 8; 
+                          -fx-padding: 10 25;
+                          -fx-cursor: hand;
+                          -fx-effect: dropshadow(gaussian, rgba(76, 175, 80, 0.3), 4, 0, 0, 2);" />
+            
+            <Button fx:id="btnCancel" 
+                   text=" Скасувати" 
+                   onAction="#handleCancel"
+                   minWidth="180.0"
+                   style="-fx-background-color: #E0E0E0; 
+                          -fx-text-fill: #555; 
+                          -fx-font-weight: bold;
+                          -fx-font-size: 14px;
+                          -fx-background-radius: 8; 
+                          -fx-padding: 10 25;
+                          -fx-cursor: hand;" />
+        </children>
+    </HBox>
+</VBox>

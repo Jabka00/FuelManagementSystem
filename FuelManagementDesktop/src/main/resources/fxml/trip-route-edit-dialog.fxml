@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.fuelmanagement.controller.TripRouteEditDialogController"
+      spacing="12.0" prefWidth="950.0" prefHeight="700.0"
+      style="-fx-background-color: linear-gradient(to bottom,rgb(255, 255, 255),rgb(248, 252, 252));">
+
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <!-- Заголовок -->
+    <HBox alignment="CENTER" style="-fx-background-color: linear-gradient(to bottom, #238A90, #238A90); -fx-padding: 12; -fx-background-radius: 8;">
+        <VBox alignment="CENTER">
+            <Label text=" Редагування маршруту поїздки" textFill="WHITE">
+                <font>
+                    <Font name="System Bold" size="18.0" />
+                </font>
+            </Label>
+            <Label text="Повне управління проміжними точками" textFill="#E0F0F2" style="-fx-font-size: 11px;" />
+        </VBox>
+    </HBox>
+
+    <!-- Інформація про поїздку -->
+    <HBox spacing="15.0">
+        <VBox spacing="6.0" HBox.hgrow="ALWAYS" style="-fx-border-color: #238A90; -fx-border-width: 1; -fx-border-radius: 6; -fx-padding: 10; -fx-background-color: rgba(255,255,255,0.95); -fx-background-radius: 6;">
+            <Label fx:id="lblTripInfo" text="Поїздка: -" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #238A90;" />
+            <Label fx:id="lblVehicleInfo" text="Автомобіль: -" style="-fx-font-size: 11px; -fx-text-fill: #238A90;" />
+        </VBox>
+        <VBox alignment="CENTER" style="-fx-border-color: #4CAF50; -fx-border-width: 1; -fx-border-radius: 6; -fx-padding: 10; -fx-background-color: #E8F5E9; -fx-background-radius: 6;">
+            <Label fx:id="lblWaypointCount" text="Точок: 0" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #2E7D32;" />
+        </VBox>
+    </HBox>
+
+    <!-- Основні точки маршруту -->
+    <VBox spacing="10.0" style="-fx-border-color: #238A90; -fx-border-width: 1; -fx-border-radius: 8; -fx-padding: 12; -fx-background-color: rgba(255,255,255,0.95); -fx-background-radius: 8;">
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label text=" Основні точки маршруту" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #238A90;" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button onAction="#handleSwapStartEnd" text=" Поміняти місцями"
+                    style="-fx-background-color: #E3F2FD; -fx-text-fill: #1565C0; -fx-font-size: 11px; -fx-padding: 5 10; -fx-background-radius: 4;" />
+        </HBox>
+
+        <GridPane hgap="10.0" vgap="8.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="NEVER" minWidth="100.0" />
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+
+            <!-- Початкова точка -->
+            <Label text="🚩 Початок:" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                   style="-fx-font-weight: bold; -fx-text-fill: #2E7D32; -fx-font-size: 12px;" />
+            <TextField fx:id="txtStartAddress" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                       promptText="Введіть початкову адресу..."
+                       style="-fx-border-color: #4CAF50; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 8;" />
+
+            <!-- Кінцева точка -->
+            <Label text="🏁 Кінець:" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                   style="-fx-font-weight: bold; -fx-text-fill: #D32F2F; -fx-font-size: 12px;" />
+            <TextField fx:id="txtEndAddress" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                       promptText="Введіть кінцеву адресу..."
+                       style="-fx-border-color: #F44336; -fx-border-radius: 4; -fx-background-radius: 4; -fx-padding: 8;" />
+        </GridPane>
+    </VBox>
+
+    <!-- Проміжні точки -->
+    <VBox spacing="10.0" VBox.vgrow="ALWAYS" style="-fx-border-color: #238A90; -fx-border-width: 1; -fx-border-radius: 8; -fx-padding: 12; -fx-background-color: rgba(255,255,255,0.95); -fx-background-radius: 8;">
+        
+        <!-- Панель інструментів -->
+        <HBox spacing="8.0" alignment="CENTER_LEFT" style="-fx-background-color: rgba(35, 138, 144, 0.1); -fx-padding: 8; -fx-background-radius: 6;">
+            <Label text="📌 Проміжні точки" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #238A90;" />
+            <Region HBox.hgrow="ALWAYS" />
+            
+            <!-- Групa кнопок додавання -->
+            <Button fx:id="btnAddWaypoint" onAction="#handleAddWaypoint" text="➕ Додати"
+                    style="-fx-background-color: linear-gradient(to bottom, #4CAF50, #45a049); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 4; -fx-padding: 6 12; -fx-font-size: 11px;" />
+            
+            <Separator orientation="VERTICAL" />
+            
+            <!-- Групa кнопок переміщення -->
+            <Button fx:id="btnMoveSelectedUp" onAction="#handleMoveSelectedUp" text="⬆" disable="true"
+                    style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 11px; -fx-padding: 6 10; -fx-background-radius: 4;">
+                <tooltip><Tooltip text="Перемістити вгору (Ctrl+↑)" /></tooltip>
+            </Button>
+            <Button fx:id="btnMoveSelectedDown" onAction="#handleMoveSelectedDown" text="⬇" disable="true"
+                    style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 11px; -fx-padding: 6 10; -fx-background-radius: 4;">
+                <tooltip><Tooltip text="Перемістити вниз (Ctrl+↓)" /></tooltip>
+            </Button>
+            
+            <Separator orientation="VERTICAL" />
+            
+            <!-- Групa кнопок дій -->
+            <Button fx:id="btnDuplicateSelected" onAction="#handleDuplicateSelected" text=" Дублювати" disable="true"
+                    style="-fx-background-color: #9C27B0; -fx-text-fill: white; -fx-font-size: 11px; -fx-padding: 6 10; -fx-background-radius: 4;">
+                <tooltip><Tooltip text="Дублювати обрану точку (Ctrl+D)" /></tooltip>
+            </Button>
+            <Button fx:id="btnDeleteSelected" onAction="#handleDeleteSelectedWaypoints" text=" Видалити" disable="true"
+                    style="-fx-background-color: #F44336; -fx-text-fill: white; -fx-font-size: 11px; -fx-padding: 6 10; -fx-background-radius: 4;">
+                <tooltip><Tooltip text="Видалити обрані (Delete)" /></tooltip>
+            </Button>
+            
+            <Separator orientation="VERTICAL" />
+            
+            <!-- Групa масових операцій -->
+            <Button fx:id="btnReverseRoute" onAction="#handleReverseRoute" text=" Реверс"
+                    style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-size: 11px; -fx-padding: 6 10; -fx-background-radius: 4;">
+                <tooltip><Tooltip text="Розвернути порядок точок" /></tooltip>
+            </Button>
+            <Button fx:id="btnClearAllWaypoints" onAction="#handleClearAllWaypoints" text=" Очистити"
+                    style="-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-size: 11px; -fx-padding: 6 10; -fx-background-radius: 4;">
+                <tooltip><Tooltip text="Видалити всі проміжні точки" /></tooltip>
+            </Button>
+        </HBox>
+
+        <!-- Таблиця -->
+        <TableView fx:id="tblWaypoints" VBox.vgrow="ALWAYS" editable="true"
+                   style="-fx-border-color: #238A90; -fx-border-radius: 4; -fx-background-radius: 4;">
+            <columns>
+                <TableColumn fx:id="colOrder" prefWidth="50.0" minWidth="50.0" text="№" editable="false" />
+                <TableColumn fx:id="colAddress" prefWidth="280.0" minWidth="200.0" text=" Адреса" />
+                <TableColumn fx:id="colDescription" prefWidth="150.0" minWidth="100.0" text=" Опис" />
+                <TableColumn fx:id="colStopTime" prefWidth="80.0" minWidth="70.0" text="⏱ Хв" />
+                <TableColumn fx:id="colNotes" prefWidth="120.0" minWidth="80.0" text="📄 Нотатки" editable="false" />
+                <TableColumn fx:id="colActions" prefWidth="230.0" minWidth="200.0" text="⚙ Дії" sortable="false" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+            <placeholder>
+                <VBox alignment="CENTER" spacing="10.0" style="-fx-padding: 20;">
+                    <Label text=" Немає проміжних точок" style="-fx-font-size: 14px; -fx-text-fill: #666; -fx-font-weight: bold;" />
+                    <Label text="Натисніть '➕ Додати' для додавання нової точки" style="-fx-font-size: 11px; -fx-text-fill: #999;" />
+                    <Label text="або перетягніть точки для зміни порядку" style="-fx-font-size: 11px; -fx-text-fill: #999; -fx-font-style: italic;" />
+                </VBox>
+            </placeholder>
+        </TableView>
+
+        <!-- Підказки -->
+        <HBox spacing="15.0" alignment="CENTER" style="-fx-padding: 5 0 0 0;">
+            <Label text=" Гарячі клавіші:" style="-fx-font-size: 10px; -fx-text-fill: #666; -fx-font-weight: bold;" />
+            <Label text="Delete - видалити" style="-fx-font-size: 10px; -fx-text-fill: #999;" />
+            <Label text="Ctrl+D - дублювати" style="-fx-font-size: 10px; -fx-text-fill: #999;" />
+            <Label text="Ctrl+↑/↓ - перемістити" style="-fx-font-size: 10px; -fx-text-fill: #999;" />
+            <Label text="Перетягування - змінити порядок" style="-fx-font-size: 10px; -fx-text-fill: #999;" />
+            <Label text="ПКМ - контекстне меню" style="-fx-font-size: 10px; -fx-text-fill: #999;" />
+        </HBox>
+    </VBox>
+
+    <!-- Індикатор прогресу -->
+    <HBox fx:id="progressBox" spacing="10.0" alignment="CENTER" visible="false" managed="false"
+          style="-fx-background-color: rgba(35, 138, 144, 0.15); -fx-padding: 12; -fx-border-radius: 8; -fx-background-radius: 8;">
+        <ProgressIndicator fx:id="progressIndicator" prefHeight="25.0" prefWidth="25.0" />
+        <Label fx:id="lblProgress" text="Перерахунок маршруту..." style="-fx-font-size: 13px; -fx-text-fill: #238A90; -fx-font-weight: bold;" />
+    </HBox>
+
+    <!-- Кнопки -->
+    <HBox spacing="15.0" alignment="CENTER" style="-fx-padding: 5 0 0 0;">
+        <Button fx:id="btnSave" onAction="#handleSave" text=" Зберегти зміни" prefWidth="160.0"
+                style="-fx-background-color: linear-gradient(to bottom, #4CAF50, #45a049); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 12 20; -fx-font-size: 14px;" />
+        <Button fx:id="btnCancel" onAction="#handleCancel" text=" Скасувати" prefWidth="160.0"
+                style="-fx-background-color: linear-gradient(to bottom, #FF6B6B, #FF5252); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 12 20; -fx-font-size: 14px;" />
+    </HBox>
+
+</VBox>

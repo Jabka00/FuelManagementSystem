@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.fuelmanagement.controller.VehicleEditDialogController"
+            style="-fx-background-color: linear-gradient(to bottom, #F8FFFE, #E8F8F8);"
+            prefWidth="700.0" prefHeight="600.0">
+
+    <top>
+        <VBox spacing="10.0"
+              style="-fx-background-color: linear-gradient(to bottom, #238A90, #238A90);
+                     -fx-background-radius: 0 0 20 20;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 2);">
+            <padding>
+                <Insets top="20.0" bottom="20.0" left="30.0" right="30.0" />
+            </padding>
+            <children>
+                <Label text=" Редагування автомобіля" textFill="WHITE"
+                       style="-fx-font-size: 22px; -fx-font-weight: bold;" />
+            </children>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" 
+                    style="-fx-background-color: transparent; -fx-border-color: transparent;"
+                    hbarPolicy="NEVER" vbarPolicy="AS_NEEDED">
+            <content>
+                <VBox spacing="20.0">
+                    <padding>
+                        <Insets top="20.0" bottom="20.0" left="30.0" right="30.0" />
+                    </padding>
+
+                    <VBox spacing="15.0"
+                          style="-fx-background-color: white;
+                                 -fx-background-radius: 12;
+                                 -fx-padding: 20;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+                        <children>
+                            <Label text=" Виберіть автомобіль для редагування"
+                                   style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #238A90;" />
+
+                            <ComboBox fx:id="cmbVehicle" promptText="Оберіть автомобіль"
+                                      maxWidth="Infinity" />
+                        </children>
+                    </VBox>
+
+                    <VBox fx:id="editPanel" spacing="20.0" visible="false" managed="false">
+                        <children>
+                            <VBox spacing="15.0"
+                                  style="-fx-background-color: white;
+                                         -fx-background-radius: 12;
+                                         -fx-padding: 20;
+                                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+                                <children>
+                                    <Label text=" Основна інформація"
+                                           style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #238A90;" />
+
+                                    <GridPane hgap="15.0" vgap="12.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints minWidth="150.0" />
+                                            <ColumnConstraints minWidth="200.0" hgrow="ALWAYS" />
+                                        </columnConstraints>
+
+                                        <Label text="Номерний знак:" style="-fx-font-weight: bold;" 
+                                               GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                        <TextField fx:id="txtLicensePlate" promptText="AA1234BB"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                                        <Label text="Модель:" style="-fx-font-weight: bold;" 
+                                               GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <TextField fx:id="txtModel" promptText="Toyota Corolla"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                                        <Label text="Тип палива:" style="-fx-font-weight: bold;" 
+                                               GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <ComboBox fx:id="cmbFuelType" promptText="Оберіть тип палива"
+                                                  maxWidth="Infinity"
+                                                  GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                                        <Label text="Статус:" style="-fx-font-weight: bold;" 
+                                               GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                        <ComboBox fx:id="cmbStatus" promptText="Оберіть статус"
+                                                  maxWidth="Infinity"
+                                                  GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+                                        <Label text="Холодильник:" style="-fx-font-weight: bold;" 
+                                               GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                        <CheckBox fx:id="chkHasRefrigerator"
+                                                 text="Є холодильник"
+                                                 style="-fx-font-size: 14px;"
+                                                 GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    </GridPane>
+                                </children>
+                            </VBox>
+
+                            <VBox spacing="15.0"
+                                  style="-fx-background-color: white;
+                                         -fx-background-radius: 12;
+                                         -fx-padding: 20;
+                                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+                                <children>
+                                    <Label text="⚙ Технічні параметри"
+                                           style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #238A90;" />
+
+                                    <GridPane hgap="15.0" vgap="12.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints minWidth="150.0" />
+                                            <ColumnConstraints minWidth="200.0" hgrow="ALWAYS" />
+                                        </columnConstraints>
+
+                                        <Label text="Ємність бака (л):" style="-fx-font-weight: bold;" 
+                                               GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                        <TextField fx:id="txtTankCapacity" promptText="50.0"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                                        <Label text="Поточний одометр (км):" style="-fx-font-weight: bold;" 
+                                               GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <TextField fx:id="txtOdometer" promptText="100000"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    </GridPane>
+                                </children>
+                            </VBox>
+
+                            <VBox spacing="15.0"
+                                  style="-fx-background-color: white;
+                                         -fx-background-radius: 12;
+                                         -fx-padding: 20;
+                                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+                                <children>
+                                    <Label text=" Норми витрат палива (літнє)"
+                                           style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #FF9500;" />
+
+                                    <GridPane hgap="15.0" vgap="12.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints minWidth="150.0" />
+                                            <ColumnConstraints minWidth="200.0" hgrow="ALWAYS" />
+                                        </columnConstraints>
+
+                                        <Label text="Місто (л/км):" style="-fx-font-weight: bold;" 
+                                               GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                        <TextField fx:id="txtCityRateSummer" promptText="0.085"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                                        <Label text="Траса (л/км):" style="-fx-font-weight: bold;" 
+                                               GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <TextField fx:id="txtHighwayRateSummer" promptText="0.062"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    </GridPane>
+                                </children>
+                            </VBox>
+
+                            <VBox spacing="15.0"
+                                  style="-fx-background-color: white;
+                                         -fx-background-radius: 12;
+                                         -fx-padding: 20;
+                                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+                                <children>
+                                    <Label text=" Норми витрат палива (зимове)"
+                                           style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #5856D6;" />
+
+                                    <GridPane hgap="15.0" vgap="12.0">
+                                        <columnConstraints>
+                                            <ColumnConstraints minWidth="150.0" />
+                                            <ColumnConstraints minWidth="200.0" hgrow="ALWAYS" />
+                                        </columnConstraints>
+
+                                        <Label text="Місто (л/км):" style="-fx-font-weight: bold;" 
+                                               GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                        <TextField fx:id="txtCityRateWinter" promptText="0.095"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                                        <Label text="Траса (л/км):" style="-fx-font-weight: bold;" 
+                                               GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <TextField fx:id="txtHighwayRateWinter" promptText="0.070"
+                                                   GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    </GridPane>
+                                </children>
+                            </VBox>
+
+                            <VBox spacing="15.0"
+                                  style="-fx-background-color: white;
+                                         -fx-background-radius: 12;
+                                         -fx-padding: 20;
+                                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);">
+                                <children>
+                                    <Label text=" Примітки"
+                                           style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #238A90;" />
+
+                                    <TextArea fx:id="txtNotes" promptText="Додаткові примітки..."
+                                              wrapText="true" prefRowCount="3" />
+                                </children>
+                            </VBox>
+                        </children>
+                    </VBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="15.0" alignment="CENTER_RIGHT"
+              style="-fx-background-color: rgba(255,255,255,0.8);
+                     -fx-background-radius: 15 15 0 0;
+                     -fx-padding: 15 30;">
+            <children>
+                <Label fx:id="lblStatus" text="" style="-fx-text-fill: gray;" HBox.hgrow="ALWAYS" />
+                
+                <Button fx:id="btnCancel" text="Скасувати" onAction="#handleCancel"
+                        style="-fx-background-color: #E0E0E0;
+                               -fx-text-fill: #333;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 8;
+                               -fx-cursor: hand;
+                               -fx-padding: 10 30;" />
+
+                <Button fx:id="btnSave" text="💾 Зберегти" onAction="#handleSave"
+                        disable="true"
+                        style="-fx-background-color: #238A90;
+                               -fx-text-fill: white;
+                               -fx-font-weight: bold;
+                               -fx-background-radius: 8;
+                               -fx-cursor: hand;
+                               -fx-padding: 10 30;" />
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>
+

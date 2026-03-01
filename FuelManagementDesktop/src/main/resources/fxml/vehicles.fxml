@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="org.example.fuelmanagement.controller.VehiclesController"
+            style="-fx-background-color: linear-gradient(to bottom, #AEE9ED, #9DE4E8);">
+
+    <top>
+        <!-- Header -->
+        <VBox style="-fx-background-color: linear-gradient(to bottom, #238A90, #238A90);
+                     -fx-background-radius: 0 0 20 20;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 3);">
+            <padding>
+                <Insets top="20.0" bottom="20.0" left="30.0" right="30.0" />
+            </padding>
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="15.0">
+                    <children>
+                        <Button fx:id="btnBack" onAction="#handleBackToMenu"
+                                text="← Назад до меню"
+                                style="-fx-background-color: transparent;
+                                       -fx-text-fill: white;
+                                       -fx-font-weight: bold;
+                                       -fx-font-size: 14px;
+                                       -fx-background-radius: 8;
+                                       -fx-border-color: rgba(255,255,255,0.4);
+                                       -fx-border-width: 1.5;
+                                       -fx-border-radius: 8;
+                                       -fx-padding: 8 16;
+                                       -fx-cursor: hand;" />
+                        
+                        <Region HBox.hgrow="ALWAYS" />
+                        
+                        <VBox alignment="CENTER">
+                            <children>
+                                <Label text="" style="-fx-font-size: 35px;" />
+                                <Label text="Автопарк" textFill="WHITE"
+                                       style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+                            </children>
+                        </VBox>
+                        
+                        <Region HBox.hgrow="ALWAYS" />
+                        
+                        <HBox spacing="10.0" alignment="CENTER_LEFT">
+                            <children>
+                                <Button fx:id="btnAdd" onAction="#handleAddVehicle"
+                                        text="➕ Додати" minWidth="110.0" minHeight="40.0"
+                                        style="-fx-background-color: rgba(255,255,255,0.25);
+                                               -fx-text-fill: white;
+                                               -fx-font-weight: bold;
+                                               -fx-font-size: 14px;
+                                               -fx-background-radius: 10;
+                                               -fx-cursor: hand;
+                                               -fx-border-color: #27AE60;
+                                               -fx-border-width: 2;
+                                               -fx-border-radius: 10;" />
+                                
+                                <Button fx:id="btnEdit" onAction="#handleEditSelected"
+                                        text=" Редагувати" minWidth="120.0" minHeight="40.0"
+                                        style="-fx-background-color: rgba(255,255,255,0.2);
+                                               -fx-text-fill: white;
+                                               -fx-font-weight: bold;
+                                               -fx-font-size: 14px;
+                                               -fx-background-radius: 10;
+                                               -fx-cursor: hand;
+                                               -fx-border-color: white;
+                                               -fx-border-width: 2;
+                                               -fx-border-radius: 10;" />
+                                
+                                <Button fx:id="btnDelete" onAction="#handleDeleteSelected"
+                                        text=" Видалити" minWidth="110.0" minHeight="40.0"
+                                        style="-fx-background-color: rgba(255,255,255,0.2);
+                                               -fx-text-fill: white;
+                                               -fx-font-weight: bold;
+                                               -fx-font-size: 14px;
+                                               -fx-background-radius: 10;
+                                               -fx-cursor: hand;
+                                               -fx-border-color: #E74C3C;
+                                               -fx-border-width: 2;
+                                               -fx-border-radius: 10;" />
+                                
+                                <Button fx:id="btnRefresh" onAction="#handleRefresh"
+                                        text=" Оновити" minWidth="100.0" minHeight="40.0"
+                                        style="-fx-background-color: rgba(255,255,255,0.2);
+                                               -fx-text-fill: white;
+                                               -fx-font-weight: bold;
+                                               -fx-font-size: 14px;
+                                               -fx-background-radius: 10;
+                                               -fx-cursor: hand;
+                                               -fx-border-color: white;
+                                               -fx-border-width: 2;
+                                               -fx-border-radius: 10;" />
+                            </children>
+                        </HBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="20.0" style="-fx-background-color: transparent;">
+            <padding>
+                <Insets top="30.0" bottom="30.0" left="30.0" right="30.0" />
+            </padding>
+            <children>
+                <!-- Statistics Cards -->
+                <HBox alignment="CENTER" spacing="20.0">
+                    <children>
+                        <!-- Total Vehicles Card -->
+                        <VBox alignment="CENTER" spacing="10.0" minWidth="200.0"
+                              style="-fx-background-color: rgba(255,255,255,0.95);
+                                     -fx-background-radius: 15;
+                                     -fx-padding: 20;
+                                     -fx-effect: dropshadow(gaussian, rgba(35, 138, 144, 0.3), 10, 0, 0, 4);">
+                            <children>
+                                <Label text="" style="-fx-font-size: 30px;" />
+                                <Label fx:id="lblTotalVehicles" text="0"
+                                       style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #238A90;" />
+                                <Label text="Всього автомобілів"
+                                       style="-fx-font-size: 12px; -fx-text-fill: #238A90;" />
+                            </children>
+                        </VBox>
+
+                        <!-- Active Vehicles Card -->
+                        <VBox alignment="CENTER" spacing="10.0" minWidth="200.0"
+                              style="-fx-background-color: rgba(255,255,255,0.95);
+                                     -fx-background-radius: 15;
+                                     -fx-padding: 20;
+                                     -fx-effect: dropshadow(gaussian, rgba(35, 138, 144, 0.3), 10, 0, 0, 4);">
+                            <children>
+                                <Label text="" style="-fx-font-size: 30px;" />
+                                <Label fx:id="lblActiveVehicles" text="0"
+                                       style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #27AE60;" />
+                                <Label text="Активних"
+                                       style="-fx-font-size: 12px; -fx-text-fill: #238A90;" />
+                            </children>
+                        </VBox>
+
+                        <!-- Maintenance Card -->
+                        <VBox alignment="CENTER" spacing="10.0" minWidth="200.0"
+                              style="-fx-background-color: rgba(255,255,255,0.95);
+                                     -fx-background-radius: 15;
+                                     -fx-padding: 20;
+                                     -fx-effect: dropshadow(gaussian, rgba(35, 138, 144, 0.3), 10, 0, 0, 4);">
+                            <children>
+                                <Label text="" style="-fx-font-size: 30px;" />
+                                <Label fx:id="lblMaintenanceVehicles" text="0"
+                                       style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #F39C12;" />
+                                <Label text="На обслуговуванні"
+                                       style="-fx-font-size: 12px; -fx-text-fill: #238A90;" />
+                            </children>
+                        </VBox>
+
+                        <!-- Total Trips Card -->
+                        <VBox alignment="CENTER" spacing="10.0" minWidth="200.0"
+                              style="-fx-background-color: rgba(255,255,255,0.95);
+                                     -fx-background-radius: 15;
+                                     -fx-padding: 20;
+                                     -fx-effect: dropshadow(gaussian, rgba(35, 138, 144, 0.3), 10, 0, 0, 4);">
+                            <children>
+                                <Label text="" style="-fx-font-size: 30px;" />
+                                <Label fx:id="lblTotalTrips" text="0"
+                                       style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #238A90;" />
+                                <Label text="Всього поїздок"
+                                       style="-fx-font-size: 12px; -fx-text-fill: #238A90;" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <!-- Table Container -->
+                <VBox spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.95);
+                                            -fx-background-radius: 15;
+                                            -fx-padding: 25;
+                                            -fx-effect: dropshadow(gaussian, rgba(35, 138, 144, 0.3), 10, 0, 0, 4);">
+                    <children>
+                        <Label text="Список автомобілів"
+                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #238A90;" />
+
+                        <TableView fx:id="tableVehicles" VBox.vgrow="ALWAYS"
+                                   style="-fx-background-color: transparent; 
+                                          -fx-background-radius: 10;
+                                          -fx-selection-bar: #238A90;
+                                          -fx-selection-bar-non-focused: #7DCDD2;">
+                            <columns>
+                                <TableColumn fx:id="colLicensePlate" text="Номер" prefWidth="120" minWidth="100" 
+                                            style="-fx-text-fill: black;" />
+                                <TableColumn fx:id="colModel" text="Модель" prefWidth="150" minWidth="120" 
+                                            style="-fx-text-fill: black;" />
+                                <TableColumn fx:id="colFuelType" text="Тип палива" prefWidth="100" minWidth="80" 
+                                            style="-fx-text-fill: black;" />
+                                <TableColumn fx:id="colFuelBalance" text="Баланс палива" prefWidth="120" minWidth="100" 
+                                            style="-fx-text-fill: black;" />
+                                <TableColumn fx:id="colTankCapacity" text="Ємність баку" prefWidth="110" minWidth="90" 
+                                            style="-fx-text-fill: black;" />
+                                <TableColumn fx:id="colOdometer" text="Пробіг (км)" prefWidth="100" minWidth="90" 
+                                            style="-fx-text-fill: black;" />
+                                <TableColumn fx:id="colStatus" text="Статус" prefWidth="110" minWidth="90" 
+                                            style="-fx-text-fill: black;" />
+                                <TableColumn fx:id="colTripCount" text="Поїздок" prefWidth="80" minWidth="70" 
+                                            style="-fx-text-fill: black;" />
+                                <TableColumn fx:id="colAvgConsumption" text="Серед. витрата" prefWidth="120" minWidth="100" 
+                                            style="-fx-text-fill: black;" />
+                            </columns>
+                            <columnResizePolicy>
+                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                            </columnResizePolicy>
+                        </TableView>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </center>
+
+    <bottom>
+        <VBox alignment="CENTER" spacing="5.0"
+              style="-fx-background-color: rgba(255,255,255,0.6);
+                     -fx-background-radius: 20 20 0 0;
+                     -fx-padding: 15;">
+            <children>
+                <Label fx:id="lblInfo" text="Завантаження даних..."
+                       style="-fx-font-size: 11px; -fx-text-fill: #238A90;" />
+            </children>
+        </VBox>
+    </bottom>
+</BorderPane>
+

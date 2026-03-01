@@ -1,0 +1,50 @@
+
+# Environment files (ВАЖЛИВО!)
+.env
+.env.local
+.env.*.local
+.env.production
+*.env
+
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build outputs
+target/
+build/
+out/
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+
+# Firebase/Google Services (contains API keys)
+google-services.json
+
+# Local properties
+local.properties

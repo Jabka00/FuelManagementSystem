@@ -1,0 +1,998 @@
+/* Загальні стилі */
+.root {
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+    -fx-font-size: 14px;
+}
+
+/* Стилі для кнопок */
+.button {
+    -fx-background-radius: 4;
+    -fx-border-radius: 4;
+    -fx-padding: 8 16 8 16;
+}
+
+.button:hover {
+    -fx-opacity: 0.8;
+}
+
+/* Стилі для текстових полів */
+.text-field, .text-area {
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.text-field:focused, .text-area:focused {
+    -fx-border-color: #2196F3;
+    -fx-border-width: 2;
+}
+
+/* Стилі для таблиць */
+.table-view {
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 4;
+}
+
+.table-view .column-header {
+    -fx-background-color: #F5F5F5;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #E3F2FD;
+}
+
+/* Стилі для ComboBox */
+.combo-box {
+    -fx-border-color: #CCCCCC;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+/* Стилі для секцій */
+.section-border {
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 5;
+    -fx-padding: 15;
+}
+/* =========================
+   Modern Light Theme — light‐theme.css
+   Фирменные цвета сохранены
+   ========================= */
+
+/* 1. Підключення кастомного шрифту */
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("../fonts/JetBrainsMono-VariableFont_wght.ttf");
+}
+
+/* 2. Змінні теми та коренева стилізація */
+.root {
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 14px;
+    -fx-base: #AEE9ED;               /* фонова панель */
+    -fx-accent: #238A90;             /* акцентний колір */
+    -fx-text: #2C3E50;               /* основний колір тексту */
+    -fx-background-color: -fx-base;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+/* 3. Dashboard специфічні стилі */
+.dashboard-root {
+    -fx-background-color: linear-gradient(to bottom, #AEE9ED, #9DE4E8);
+}
+
+.header-section {
+    -fx-background-color: linear-gradient(to bottom, #238A90, #238A90);
+    -fx-background-radius: 0 0 25 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 10, 0, 0, 3);
+}
+
+.main-section {
+    -fx-background-color: transparent;
+}
+
+.main-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+}
+
+.main-scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.main-scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+.main-scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(35, 138, 144, 0.4);
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+.main-scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(35, 138, 144, 0.6);
+}
+
+.main-scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+}
+
+.footer-section {
+    -fx-background-color: transparent;
+}
+
+/* 4. Логотип та заголовки */
+.logo-icon {
+    -fx-font-size: 48px;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+}
+
+.app-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 3, 0, 0, 1);
+}
+
+.welcome-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgba(255,255,255,0.95);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);
+}
+
+.subtitle-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: rgba(255,255,255,0.8);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);
+}
+
+/* 5. Групи кнопок */
+.button-group {
+    -fx-background-color: rgba(255,255,255,0.9);
+    -fx-background-radius: 15;
+    -fx-padding: 20 25;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+    -fx-border-color: rgba(35, 138, 144, 0.2);
+    -fx-border-width: 1;
+    -fx-border-radius: 15;
+}
+
+.group-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #238A90;
+    -fx-padding: 0 0 10 0;
+}
+
+/* 6. Модерні кнопки */
+.modern-button {
+    -fx-background-color: linear-gradient(to bottom, #FFFFFF, #F0FDFE);
+    -fx-text-fill: #2C3E50;
+    -fx-background-radius: 15;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 12 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 2);
+    -fx-border-color: #E0F0F2;
+    -fx-border-width: 0;
+    -fx-border-radius: 15;
+    -fx-font-size: 14px;
+}
+
+.modern-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #FFFFFF, #E6FAFC);
+    -fx-border-color: #238A90;
+    -fx-text-fill: #238A90;
+    -fx-effect: dropshadow(gaussian, rgba(35, 138, 144, 0.4), 8, 0, 0, 3);
+}
+
+.modern-button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #E6FAFC, #D1F5F7);
+    -fx-translate-y: 1;
+}
+
+/* 7. Специфічні стилі для різних типів кнопок - убираем hover стили */
+.view-button {
+    -fx-border-color: #E0F0F2;
+}
+
+.add-button {
+    -fx-border-color: #E0F0F2;
+}
+
+.info-button {
+    -fx-border-color: #E0F0F2;
+}
+
+.warehouse-button {
+    -fx-border-color: #E0F0F2;
+}
+
+.logout-button {
+    -fx-background-color: linear-gradient(to bottom, #FEF2F2, #FEE2E2);
+    -fx-border-color: #EF4444;
+    -fx-text-fill: #DC2626;
+}
+
+.logout-button:hover {
+    -fx-background-color: linear-gradient(to bottom, #FEE2E2, #FECACA);
+    -fx-border-color: #DC2626;
+    -fx-text-fill: #B91C1C;
+    -fx-effect: dropshadow(gaussian, rgba(239, 68, 68, 0.3), 8, 0, 0, 3);
+}
+
+/* 8. Роздільник */
+.footer-separator {
+    -fx-background-color: rgba(35, 138, 144, 0.3);
+    -fx-min-height: 2;
+    -fx-max-height: 2;
+    -fx-min-width: 200;
+    -fx-max-width: 200;
+}
+
+/* 9. Загальні текстові елементи */
+.label, .text, .input-field,
+.text-field, .password-field,
+.combo-box, .date-picker {
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text;
+}
+
+/* Стили для CheckBox */
+.check-box {
+    -fx-font-family: "JetBrains Mono";
+    -fx-font-size: 14px;
+    -fx-text-fill: #238A90;
+}
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color: #238A90;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #238A90;
+}
+
+.check-box:hover .box {
+    -fx-border-color: #238A90;
+    -fx-border-width: 2;
+}
+
+/* 10. Класичні кнопки (для зворотної сумісності) */
+.button {
+    -fx-background-color: linear-gradient(to bottom, #238A90, #238A90);
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 8 16;
+    -fx-effect: dropshadow(gaussian, rgba(35, 138, 144, 0.3), 4, 0, 0, 2);
+    -fx-border-color: transparent;
+    -fx-border-radius: 8;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to bottom, #238A90, #238A90);
+    -fx-effect: dropshadow(gaussian, rgba(35, 138, 144, 0.4), 6, 0, 0, 3);
+}
+
+.button:pressed {
+    -fx-background-color: linear-gradient(to bottom, #238A90, #238A90);
+    -fx-translate-y: 1;
+}
+
+/* Вторинні кнопки */
+.secondary-button {
+    -fx-background-color: #EF4444;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-font-weight: bold;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #DC2626;
+}
+
+/* 11. Поля вводу */
+.input-field, .text-field,
+.password-field, .combo-box,
+.date-picker {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-color: #E0F0F2;
+    -fx-border-radius: 8;
+    -fx-padding: 10;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 3, 0, 0, 1);
+}
+
+.input-field:focused, .text-field:focused,
+.password-field:focused,
+.combo-box:focused, .date-picker:focused {
+    -fx-border-color: -fx-accent;
+    -fx-effect: dropshadow(gaussian, rgba(35, 138, 144, 0.3), 6, 0, 0, 2);
+}
+
+/* 12. Меню та тулбари */
+.menu-bar {
+    -fx-background-color: -fx-accent;
+    -fx-background-radius: 8;
+}
+
+.tool-bar {
+    -fx-background-color: derive(-fx-accent, 20%);
+    -fx-padding: 8;
+    -fx-background-radius: 8;
+}
+
+/* 13. Лейбли */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #238A90;
+}
+
+/* 14. Панель фільтрів */
+.filter-bar {
+    -fx-background-color: #E6FAFC;
+    -fx-padding: 16 24;
+    -fx-spacing: 20;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 2);
+}
+
+/* 15. TableView */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-table-cell-border-color: #E0F0F2;
+    -fx-padding: 6;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(35, 138, 144, 0.1), 6, 0, 0, 2);
+}
+
+.table-view .column-header-background {
+    -fx-background-color: linear-gradient(to bottom, #238A90, #238A90);
+    -fx-background-radius: 8 8 0 0;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 40px;
+    -fx-border-color: transparent;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-alignment: center-left;
+    -fx-font-size: 13px;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+    -fx-text-fill: #238A90;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #F8FDFE;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #E6FAFC;
+    -fx-text-fill: #238A90;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: linear-gradient(to bottom, #238A90, #238A90);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.table-view .scroll-bar:vertical .thumb,
+.table-view .scroll-bar:horizontal .thumb {
+    -fx-background-color: #238A90;
+    -fx-background-radius: 6;
+}
+
+.table-view .scroll-bar:vertical .track,
+.table-view .scroll-bar:horizontal .track {
+    -fx-background-color: #E0F0F2;
+    -fx-background-radius: 6;
+}
+
+/* Стили для ComboBox и DatePicker в истории */
+.combo-box, .date-picker {
+    -fx-background-color: white;
+    -fx-border-color: #238A90;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8;
+}
+
+.combo-box:focused, .date-picker:focused {
+    -fx-border-color: #238A90;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(35, 138, 144, 0.3), 4, 0, 0, 1);
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: #238A90;
+    -fx-background-radius: 0 6 6 0;
+}
+
+.combo-box .arrow {
+    -fx-background-color: white;
+}
+
+/* Стили для TextField в истории */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #238A90;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8;
+}
+
+.text-field:focused {
+    -fx-border-color: #238A90;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(35, 138, 144, 0.3), 4, 0, 0, 1);
+}
+
+/* Стилі для ScrollPane деталей поїздки */
+.scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 10px;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(35, 138, 144, 0.5);
+    -fx-background-radius: 5;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(35, 138, 144, 0.8);
+}
+
+.scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: rgba(0, 0, 0, 0.05);
+    -fx-background-radius: 5;
+}
+
+.scroll-pane .scroll-bar:vertical .increment-button,
+.scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+/* 16. Вкладки */
+.tab-pane {
+    -fx-tab-min-width: 120px;
+    -fx-tab-max-width: 200px;
+}
+
+.tab {
+    -fx-background-color: -fx-base;
+    -fx-text-fill: #238A90;
+    -fx-padding: 8 14;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8 8 0 0;
+}
+
+
+/* 17. Статистика та сповіщення */
+.stats-box, .notices-box {
+    -fx-background-color: derive(-fx-base, 5%);
+    -fx-background-radius: 12;
+    -fx-padding: 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 2);
+}
+
+.stats-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-accent;
+    -fx-padding: 0 0 8 0;
+}
+
+.stats-label, .notices-box Label {
+    -fx-font-size: 14px;
+    -fx-text-fill: -fx-text;
+    -fx-padding: 2 0;
+}
+
+/* 18. Діалогові контейнери */
+.dialog-container {
+    -fx-background-color: derive(-fx-base, 5%);
+    -fx-background-radius: 12;
+    -fx-padding: 20;
+    -fx-spacing: 10;
+}
+
+.button.delete-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: red;
+    -fx-font-size: 14pt;
+    -fx-cursor: hand;
+    -fx-background-radius: 8;
+    -fx-padding: 6 12;
+}
+
+.button.delete-button:hover {
+    -fx-background-color: rgba(255, 0, 0, 0.1);
+    -fx-text-fill: #DC2626;
+}
+
+/* 19. Додаткові стилі для горизонтального layout */
+.user-label {
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+    -fx-text-fill: rgba(255,255,255,0.85);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0, 0, 1);
+}
+
+.version-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: rgba(35, 138, 144, 0.8);
+    -fx-font-weight: bold;
+}
+
+.copyright-label {
+    -fx-font-size: 11px;
+    -fx-text-fill: rgba(35, 138, 144, 0.6);
+}
+
+/* 20. Стилі для Tooltip - швидша поява підказок */
+.tooltip {
+    -fx-font-size: 13px;
+    -fx-font-family: "JetBrains Mono";
+    -fx-background-color: linear-gradient(to bottom, #238A90, #238A90);
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 0, 3);
+    -fx-show-delay: 100ms;      /* Швидша поява - 0.1 секунди замість 1 секунди */
+    -fx-show-duration: 10s;     /* Показувати 10 секунд */
+    -fx-hide-delay: 50ms;       /* Швидке зникнення */
+}
+
+/* 21. Стилі для головного меню - Action Cards */
+#btnCreateTrip,
+#btnViewHistory,
+#btnViewStatistics,
+#btnViewVehicles,
+#btnAddDriver {
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease;
+}
+
+#btnCreateTrip:hover,
+#btnViewHistory:hover,
+#btnViewStatistics:hover,
+#btnViewVehicles:hover,
+#btnAddDriver:hover {
+    -fx-background-color: #238A90;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+    -fx-effect: dropshadow(gaussian, rgba(35, 138, 144, 0.4), 12, 0, 0, 4);
+}
+
+#btnCreateTrip:pressed,
+#btnViewHistory:pressed,
+#btnViewStatistics:pressed,
+#btnViewVehicles:pressed,
+#btnAddDriver:pressed {
+    -fx-background-color: #238A90;
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* 22. Стилі для деталей поїздки - Trip Detail Cards */
+.trip-detail-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);
+}
+
+.trip-detail-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(35, 138, 144, 0.2), 12, 0, 0, 3);
+}
+
+.card-header {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212121;
+}
+
+.card-label {
+    -fx-text-fill: #757575;
+    -fx-font-size: 13px;
+}
+
+.card-value {
+    -fx-text-fill: #212121;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+}
+
+.status-badge {
+    -fx-padding: 5 12;
+    -fx-background-radius: 15;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+.status-created {
+    -fx-background-color: #9E9E9E;
+}
+
+.status-assigned {
+    -fx-background-color: #2196F3;
+}
+
+.status-started {
+    -fx-background-color: #4CAF50;
+}
+
+.status-paused {
+    -fx-background-color: #FF9800;
+}
+
+.status-completed {
+    -fx-background-color: #4CAF50;
+}
+
+.status-cancelled {
+    -fx-background-color: #757575;
+}
+
+.status-deleted {
+    -fx-background-color: #F44336;
+}
+
+/* Action buttons стилі */
+.action-button {
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 4, 0, 0, 2);
+}
+
+.action-button:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 6, 0, 0, 3);
+    -fx-opacity: 0.9;
+}
+
+.action-button:pressed {
+    -fx-translate-y: 1;
+}
+
+.edit-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #238A90;
+    -fx-border-width: 2;
+    -fx-text-fill: #238A90;
+}
+
+.edit-button:hover {
+    -fx-background-color: rgba(35, 138, 144, 0.1);
+}
+
+.maps-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #4285F4;
+    -fx-border-width: 2;
+    -fx-text-fill: #4285F4;
+}
+
+.maps-button:hover {
+    -fx-background-color: rgba(66, 133, 244, 0.1);
+}
+
+.delete-action-button {
+    -fx-background-color: #FF5252;
+    -fx-text-fill: white;
+}
+
+.delete-action-button:hover {
+    -fx-background-color: #FF1744;
+}
+
+.restore-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+}
+
+.restore-button:hover {
+    -fx-background-color: #45A049;
+}
+
+/* Separator в карточках */
+.card-separator {
+    -fx-background-color: #E0E0E0;
+    -fx-pref-height: 1;
+}
+
+/* Додаткові стилі для інформаційних блоків */
+.info-block {
+    -fx-spacing: 5;
+}
+
+.info-block-label {
+    -fx-text-fill: #757575;
+    -fx-font-size: 12px;
+}
+
+.info-block-value {
+    -fx-text-fill: #212121;
+    -fx-font-size: 13px;
+    -fx-wrap-text: true;
+}
+
+/* Метрики */
+.metric-row {
+    -fx-spacing: 10;
+    -fx-alignment: center-left;
+}
+
+.deviation-positive {
+    -fx-text-fill: #FF5252;
+    -fx-font-weight: bold;
+}
+
+.deviation-negative {
+    -fx-text-fill: #4CAF50;
+    -fx-font-weight: bold;
+}
+
+/* Waypoints */
+.waypoint-item {
+    -fx-text-fill: #212121;
+    -fx-font-size: 12px;
+    -fx-wrap-text: true;
+}
+
+/* Header стилі для trip detail */
+.trip-detail-header {
+    -fx-background-color: white;
+    -fx-border-color: #E0E0E0;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 20;
+}
+
+.trip-number-label {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212121;
+}
+
+.route-type-label {
+    -fx-text-fill: #757575;
+    -fx-font-size: 14px;
+}
+
+.back-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #238A90;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 5 10;
+}
+
+.back-button:hover {
+    -fx-background-color: rgba(35, 138, 144, 0.1);
+    -fx-background-radius: 5;
+}
+
+/* ScrollPane для trip detail */
+.trip-detail-scroll {
+    -fx-background-color: transparent;
+    -fx-background: #F5F5F5;
+}
+
+.trip-detail-scroll .viewport {
+    -fx-background-color: #F5F5F5;
+}
+
+/* Стилі для результатів пошуку */
+.results-count-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #757575;
+    -fx-font-weight: 500;
+}
+
+/* 23. Modern History Table Styles */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #F8F9FA;
+    -fx-background-radius: 10 10 0 0;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent #E0E0E0 transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 12 8;
+    -fx-font-weight: 600;
+    -fx-font-size: 12px;
+    -fx-text-fill: #2C3E50;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: #2C3E50;
+    -fx-font-weight: 600;
+    -fx-font-size: 12px;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: transparent;
+    -fx-cell-size: 48px;
+    -fx-padding: 4 0;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #FAFBFC;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #F0F8FF;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #E3F2FD;
+    -fx-text-fill: #2C3E50;
+}
+
+.table-row-cell .text {
+    -fx-fill: #2C3E50;
+}
+
+.table-cell {
+    -fx-padding: 8;
+    -fx-border-color: transparent transparent #F0F0F0 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+/* Filter panel styles */
+.filter-panel {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);
+}
+
+/* Modern input styles */
+.text-field, .combo-box, .date-picker {
+    -fx-background-color: white;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 8 12;
+    -fx-font-size: 13px;
+}
+
+.text-field:focused, .combo-box:focused, .date-picker:focused {
+    -fx-border-color: #238A90;
+    -fx-border-width: 2;
+}
+
+.text-field {
+    -fx-background-color: #F5F7FA;
+}
+
+/* Button styles */
+.button {
+    -fx-background-radius: 6;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+    -fx-font-weight: 600;
+    -fx-font-size: 13px;
+}
+
+.button:hover {
+    -fx-opacity: 0.9;
+}
+
+.button:pressed {
+    -fx-translate-y: 1;
+}
+
+/* Checkbox modern style */
+.check-box {
+    -fx-text-fill: #2C3E50;
+    -fx-font-size: 13px;
+}
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-border-width: 2;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #238A90;
+    -fx-border-color: #238A90;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+.check-box:hover .box {
+    -fx-border-color: #238A90;
+}
+
+/* Modern page background */
+.history-root {
+    -fx-background-color: #F5F7FA;
+}
+
+/* 24. Pagination styles */
+.pagination-button {
+    -fx-background-color: white;
+    -fx-border-color: #E0E0E0;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-padding: 6 12;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+    -fx-text-fill: #2C3E50;
+    -fx-font-weight: 500;
+}
+
+.pagination-button:hover {
+    -fx-background-color: #F5F7FA;
+    -fx-border-color: #238A90;
+    -fx-text-fill: #238A90;
+}
+
+.pagination-button:disabled {
+    -fx-background-color: #F5F5F5;
+    -fx-border-color: #E0E0E0;
+    -fx-text-fill: #BDBDBD;
+    -fx-cursor: default;
+    -fx-opacity: 0.6;
+}
+
+.pagination-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #2C3E50;
+    -fx-font-weight: 500;
+    -fx-padding: 0 12;
+}

@@ -1,0 +1,49 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:mysql://localhost:3306/fuel_management?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Europe/Kiev}
+    username: ${DATABASE_USERNAME:root}
+    password: ${DATABASE_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      pool-name: FuelManagementPool
+      maximum-pool-size: ${HIKARI_MAXIMUM_POOL_SIZE:10}
+      minimum-idle: ${HIKARI_MINIMUM_IDLE:1}
+      idle-timeout: ${HIKARI_IDLE_TIMEOUT:60000}
+      max-lifetime: ${HIKARI_MAX_LIFETIME:300000}
+      connection-timeout: ${HIKARI_CONNECTION_TIMEOUT:30000}
+
+  jpa:
+    hibernate:
+      ddl-auto: none  
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect  
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+        enable_lazy_load_no_trans: false
+
+server:
+  port: ${PORT:8080}
+  address: 0.0.0.0
+
+logging:
+  level:
+    org.example.fuelmanagementapi: DEBUG
+    org.springframework.web: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true

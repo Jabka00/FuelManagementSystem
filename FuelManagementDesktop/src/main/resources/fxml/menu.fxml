@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="org.example.fuelmanagement.controller.MenuController"
+            style="-fx-background-color: #F5F9FA;">
+
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true"
+                    style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-width: 0;">
+            <content>
+                <VBox alignment="TOP_CENTER" spacing="32.0" style="-fx-background-color: transparent;">
+                    <padding>
+                        <Insets top="40.0" bottom="40.0" left="32.0" right="32.0" />
+                    </padding>
+                    
+                    <!-- Header -->
+                    <VBox alignment="CENTER" spacing="12.0">
+                        <children>
+                            <!-- Title -->
+                            <Label text="Система обліку палива"
+                                   style="-fx-font-size: 32px; 
+                                          -fx-font-weight: bold; 
+                                          -fx-text-fill: #1A2E35;" />
+                            
+                            <!-- Subtitle -->
+                            <Label text="Виберіть дію"
+                                   style="-fx-font-size: 18px; 
+                                          -fx-text-fill: #64748B;" />
+                        </children>
+                    </VBox>
+                    
+                    <!-- Action Cards Container -->
+                    <VBox alignment="CENTER" spacing="24.0">
+                        <children>
+                            <!-- First Row - 3 cards -->
+                            <HBox alignment="CENTER" spacing="24.0">
+                                <children>
+                                    <!-- Card 1: Нова поїздка -->
+                                    <VBox alignment="CENTER" spacing="16.0" 
+                                          style="-fx-background-color: white;
+                                                 -fx-background-radius: 16;
+                                                 -fx-padding: 36 32;
+                                                 -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 12, 0, 0, 2);
+                                                 -fx-pref-width: 320;
+                                                 -fx-min-width: 320;
+                                                 -fx-max-width: 320;">
+                                        <children>
+                                            <!-- Title -->
+                                            <Label text="Нова поїздка"
+                                                   style="-fx-font-size: 24px; 
+                                                          -fx-font-weight: bold; 
+                                                          -fx-text-fill: #1A2E35;" />
+                                            
+                                            <!-- Button -->
+                                            <Button fx:id="btnCreateTrip" 
+                                                    onAction="#handleCreateTrip"
+                                                    text="Створити" 
+                                                    maxWidth="Infinity"
+                                                    minHeight="52.0"
+                                                    style="-fx-background-color: #238A90;
+                                                           -fx-text-fill: white;
+                                                           -fx-font-weight: 600;
+                                                           -fx-font-size: 17px;
+                                                           -fx-background-radius: 10;
+                                                           -fx-cursor: hand;">
+                                            </Button>
+                                        </children>
+                                    </VBox>
+                                    
+                                    <!-- Card 2: Історія поїздок -->
+                                    <VBox alignment="CENTER" spacing="16.0" 
+                                          style="-fx-background-color: white;
+                                                 -fx-background-radius: 16;
+                                                 -fx-padding: 36 32;
+                                                 -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 12, 0, 0, 2);
+                                                 -fx-pref-width: 320;
+                                                 -fx-min-width: 320;
+                                                 -fx-max-width: 320;">
+                                        <children>
+                                            <!-- Title -->
+                                            <Label text="Історія поїздок"
+                                                   style="-fx-font-size: 24px; 
+                                                          -fx-font-weight: bold; 
+                                                          -fx-text-fill: #1A2E35;" />
+                                            
+                                            <!-- Button -->
+                                            <Button fx:id="btnViewHistory" 
+                                                    onAction="#handleViewHistory"
+                                                    text="Переглянути" 
+                                                    maxWidth="Infinity"
+                                                    minHeight="52.0"
+                                                    style="-fx-background-color: #238A90;
+                                                           -fx-text-fill: white;
+                                                           -fx-font-weight: 600;
+                                                           -fx-font-size: 17px;
+                                                           -fx-background-radius: 10;
+                                                           -fx-cursor: hand;">
+                                            </Button>
+                                        </children>
+                                    </VBox>
+                                    
+                                    <!-- Card 3: Статистика -->
+                                    <VBox alignment="CENTER" spacing="16.0" 
+                                          style="-fx-background-color: white;
+                                                 -fx-background-radius: 16;
+                                                 -fx-padding: 36 32;
+                                                 -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 12, 0, 0, 2);
+                                                 -fx-pref-width: 320;
+                                                 -fx-min-width: 320;
+                                                 -fx-max-width: 320;">
+                                        <children>
+                                            <!-- Title -->
+                                            <Label text="Статистика"
+                                                   style="-fx-font-size: 24px; 
+                                                          -fx-font-weight: bold; 
+                                                          -fx-text-fill: #1A2E35;" />
+                                            
+                                            <!-- Button -->
+                                            <Button fx:id="btnViewStatistics" 
+                                                    onAction="#handleViewStatistics"
+                                                    text="Аналітика" 
+                                                    maxWidth="Infinity"
+                                                    minHeight="52.0"
+                                                    style="-fx-background-color: #238A90;
+                                                           -fx-text-fill: white;
+                                                           -fx-font-weight: 600;
+                                                           -fx-font-size: 17px;
+                                                           -fx-background-radius: 10;
+                                                           -fx-cursor: hand;">
+                                            </Button>
+                                        </children>
+                                    </VBox>
+                                </children>
+                            </HBox>
+                            
+                            <!-- Second Row - 2 cards centered -->
+                            <HBox alignment="CENTER" spacing="24.0">
+                                <children>
+                                    <!-- Card 4: Автомобілі -->
+                                    <VBox alignment="CENTER" spacing="16.0" 
+                                          style="-fx-background-color: white;
+                                                 -fx-background-radius: 16;
+                                                 -fx-padding: 36 32;
+                                                 -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 12, 0, 0, 2);
+                                                 -fx-pref-width: 320;
+                                                 -fx-min-width: 320;
+                                                 -fx-max-width: 320;">
+                                        <children>
+                                            <!-- Title -->
+                                            <Label text="Автомобілі"
+                                                   style="-fx-font-size: 24px; 
+                                                          -fx-font-weight: bold; 
+                                                          -fx-text-fill: #1A2E35;" />
+                                            
+                                            <!-- Button -->
+                                            <Button fx:id="btnViewVehicles" 
+                                                    onAction="#handleViewVehicles"
+                                                    text="Автопарк" 
+                                                    maxWidth="Infinity"
+                                                    minHeight="52.0"
+                                                    style="-fx-background-color: #238A90;
+                                                           -fx-text-fill: white;
+                                                           -fx-font-weight: 600;
+                                                           -fx-font-size: 17px;
+                                                           -fx-background-radius: 10;
+                                                           -fx-cursor: hand;">
+                                            </Button>
+                                        </children>
+                                    </VBox>
+                                    
+                                    <!-- Card 5: Додати водія -->
+                                    <VBox alignment="CENTER" spacing="16.0" 
+                                          style="-fx-background-color: white;
+                                                 -fx-background-radius: 16;
+                                                 -fx-padding: 36 32;
+                                                 -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 12, 0, 0, 2);
+                                                 -fx-pref-width: 320;
+                                                 -fx-min-width: 320;
+                                                 -fx-max-width: 320;">
+                                        <children>
+                                            <!-- Title -->
+                                            <Label text="Додати водія"
+                                                   style="-fx-font-size: 24px; 
+                                                          -fx-font-weight: bold; 
+                                                          -fx-text-fill: #1A2E35;" />
+                                            
+                                            <!-- Button -->
+                                            <Button fx:id="btnAddDriver" 
+                                                    onAction="#handleAddDriver"
+                                                    text="Додати" 
+                                                    maxWidth="Infinity"
+                                                    minHeight="52.0"
+                                                    style="-fx-background-color: #238A90;
+                                                           -fx-text-fill: white;
+                                                           -fx-font-weight: 600;
+                                                           -fx-font-size: 17px;
+                                                           -fx-background-radius: 10;
+                                                           -fx-cursor: hand;">
+                                            </Button>
+                                        </children>
+                                    </VBox>
+                                </children>
+                            </HBox>
+                        </children>
+                    </VBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+</BorderPane>

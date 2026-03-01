@@ -1,0 +1,11 @@
+# ==============================================
+# FuelManagementApp Local Configuration
+# ==============================================
+# Скопіюйте цей файл як local.properties та заповніть реальними значеннями
+# НІКОЛИ не комітьте local.properties у Git!
+
+# Android SDK location (автоматично генерується Android Studio)
+sdk.dir=/path/to/your/Android/sdk
+
+# API Configuration
+API_BASE_URL=https://your-api-url.com/api/v1/

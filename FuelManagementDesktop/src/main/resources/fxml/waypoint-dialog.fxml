@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="org.example.fuelmanagement.controller.WaypointDialogController"
+      spacing="12.0" prefWidth="750.0" prefHeight="650.0" style="-fx-background-color: linear-gradient(to bottom,rgb(255, 255, 255),rgb(248, 252, 252));">
+    
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+
+    <!-- Заголовок -->
+    <HBox alignment="CENTER" spacing="15.0" style="-fx-background-color: linear-gradient(to bottom, #238A90, #238A90); -fx-padding: 15; -fx-background-radius: 8;">
+        <children>
+            <Label text="" style="-fx-font-size: 28px;" />
+            <VBox alignment="CENTER">
+                <Label text="Проміжна точка маршруту" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <Label text="Редагування деталей зупинки" textFill="#E0F0F2" style="-fx-font-size: 11px;" />
+            </VBox>
+        </children>
+    </HBox>
+
+    <!-- Шаблони (зверху для швидкого доступу) -->
+    <HBox spacing="8.0" alignment="CENTER_LEFT" style="-fx-background-color: rgba(35, 138, 144, 0.1); -fx-padding: 10; -fx-background-radius: 6;">
+        <children>
+            <Label text="📁 Шаблони:" style="-fx-font-weight: bold; -fx-font-size: 12px; -fx-text-fill: #238A90;" />
+            <ComboBox fx:id="cmbTemplates" promptText="Оберіть шаблон..." prefWidth="180.0"
+                      style="-fx-background-color: white; -fx-background-radius: 6; -fx-font-size: 11px;" />
+            <Button fx:id="btnApplyTemplate" onAction="#handleApplyTemplate" text="▶ Застосувати"
+                    style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 11px; -fx-padding: 5 10; -fx-background-radius: 4;" />
+            <Button onAction="#handleDeleteTemplate" text=""
+                    style="-fx-background-color: #FF6B6B; -fx-text-fill: white; -fx-font-size: 11px; -fx-padding: 5 8; -fx-background-radius: 4;" />
+            <Region HBox.hgrow="ALWAYS" />
+            <Button fx:id="btnSaveAsTemplate" onAction="#handleSaveAsTemplate" text="💾 Зберегти як шаблон"
+                    style="-fx-background-color: #238A90; -fx-text-fill: white; -fx-font-size: 11px; -fx-padding: 5 10; -fx-background-radius: 4;" />
+        </children>
+    </HBox>
+
+    <!-- Основні поля -->
+    <VBox spacing="10.0" style="-fx-border-color: #238A90; -fx-border-width: 1; -fx-border-radius: 8; -fx-padding: 12; -fx-background-color: white; -fx-background-radius: 8;">
+        
+        <!-- Адреса -->
+        <VBox spacing="6.0">
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label text=" Адреса проміжної точки *"
+                       style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #238A90;" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnCopyFromStart" onAction="#handleCopyFromStart" text=" З початку"
+                        style="-fx-background-color: #E8F5E9; -fx-text-fill: #2E7D32; -fx-font-size: 10px; -fx-padding: 3 8; -fx-background-radius: 4;" />
+                <Button fx:id="btnCopyFromEnd" onAction="#handleCopyFromEnd" text=" З кінця"
+                        style="-fx-background-color: #E3F2FD; -fx-text-fill: #1565C0; -fx-font-size: 10px; -fx-padding: 3 8; -fx-background-radius: 4;" />
+            </HBox>
+            <TextField fx:id="txtWaypointAddress" promptText="наприклад: Київ, вулиця Хрещатик, 1"
+                       style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #E0F0F2; -fx-border-radius: 6; -fx-padding: 10; -fx-font-size: 13px;" />
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <Label text=" Формат: 'місто, вулиця, будинок' або 'вулиця, будинок, місто'"
+                       wrapText="true"
+                       style="-fx-font-size: 10px; -fx-text-fill: #666; -fx-font-style: italic;" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Button fx:id="btnValidateAddress" onAction="#handleValidateAddress" text=" Перевірити"
+                        style="-fx-background-color: #238A90; -fx-text-fill: white; -fx-font-size: 10px; -fx-padding: 4 10; -fx-background-radius: 4;" />
+            </HBox>
+            <HBox fx:id="validationStatusBox" spacing="8.0" alignment="CENTER_LEFT" visible="false" managed="false"
+                  style="-fx-padding: 6; -fx-background-color: #F5F5F5; -fx-background-radius: 4;">
+                <children>
+                    <Label fx:id="lblValidationIcon" style="-fx-font-size: 14px;" />
+                    <Label fx:id="lblValidationStatus" wrapText="true" style="-fx-font-size: 11px;" HBox.hgrow="ALWAYS" />
+                </children>
+            </HBox>
+        </VBox>
+
+        <Separator />
+
+        <!-- Опис та час зупинки -->
+        <HBox spacing="15.0">
+            <VBox spacing="6.0" HBox.hgrow="ALWAYS">
+                <Label text=" Тип зупинки"
+                       style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #238A90;" />
+                <ComboBox fx:id="cmbWaypointDescription" promptText="Оберіть або введіть тип..."
+                          prefWidth="Infinity" editable="true"
+                          style="-fx-background-color: white; -fx-background-radius: 6;" />
+            </VBox>
+            
+            <VBox spacing="6.0" minWidth="180.0">
+                <Label text="⏱ Час зупинки"
+                       style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #238A90;" />
+                <HBox spacing="8.0" alignment="CENTER_LEFT">
+                    <TextField fx:id="txtStopTime" promptText="0" prefWidth="60.0"
+                               style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #E0F0F2; -fx-border-radius: 6; -fx-padding: 8; -fx-font-size: 12px;" />
+                    <Label text="хв" style="-fx-text-fill: #666; -fx-font-size: 12px;" />
+                </HBox>
+            </VBox>
+        </HBox>
+        
+        <!-- Швидкий вибір часу -->
+        <HBox spacing="8.0" alignment="CENTER_LEFT">
+            <Label text="⚡ Швидкий вибір:" style="-fx-font-size: 11px; -fx-text-fill: #666;" />
+            <ComboBox fx:id="cmbQuickStopTime" promptText="Оберіть час..."
+                      prefWidth="200.0"
+                      style="-fx-background-color: #F5F5F5; -fx-background-radius: 4; -fx-font-size: 10px;" />
+        </HBox>
+    </VBox>
+
+    <!-- Нотатки -->
+    <VBox spacing="6.0">
+        <Label text="📄 Додаткові нотатки (необов'язково)"
+               style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #238A90;" />
+        <TextArea fx:id="txtWaypointNotes" promptText="Додаткова інформація про зупинку: контакти, особливості, інструкції..."
+                  prefHeight="70.0" wrapText="true"
+                  style="-fx-background-color: white; -fx-background-radius: 6; -fx-border-color: #E0F0F2; -fx-border-radius: 6;" />
+    </VBox>
+
+    <!-- Перемикач розширених полів
+    <HBox alignment="CENTER_LEFT" spacing="10.0">
+        <CheckBox fx:id="chkShowAdvanced" text=" Показати розширені налаштування" 
+                  style="-fx-font-size: 12px; -fx-text-fill: #238A90;" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button fx:id="btnClearAll" onAction="#handleClearAll" text=" Очистити все"
+                style="-fx-background-color: #FFF3E0; -fx-text-fill: #E65100; -fx-font-size: 10px; -fx-padding: 4 10; -fx-background-radius: 4;" />
+    </HBox> -->
+
+    <!-- Розширені поля (приховані за замовчуванням) -->
+    <VBox fx:id="advancedFieldsBox" spacing="12.0" visible="false" managed="false"
+          style="-fx-border-color: #FF9800; -fx-border-width: 1; -fx-border-radius: 8; -fx-padding: 12; -fx-background-color: #FFF8E1; -fx-background-radius: 8;">
+        
+        <Label text=" Розширені налаштування" style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #E65100;" />
+        
+        <!-- Координати -->
+        <HBox spacing="15.0">
+            <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                <Label text="🌐 Широта (Latitude)" style="-fx-font-size: 11px; -fx-text-fill: #666;" />
+                <TextField fx:id="txtLatitude" promptText="наприклад: 50.4501"
+                           style="-fx-background-color: white; -fx-background-radius: 4; -fx-border-color: #E0E0E0; -fx-border-radius: 4; -fx-padding: 6; -fx-font-size: 11px;" />
+            </VBox>
+            <VBox spacing="4.0" HBox.hgrow="ALWAYS">
+                <Label text="🌐 Довгота (Longitude)" style="-fx-font-size: 11px; -fx-text-fill: #666;" />
+                <TextField fx:id="txtLongitude" promptText="наприклад: 30.5234"
+                           style="-fx-background-color: white; -fx-background-radius: 4; -fx-border-color: #E0E0E0; -fx-border-radius: 4; -fx-padding: 6; -fx-font-size: 11px;" />
+            </VBox>
+        </HBox>
+        
+        <Separator />
+        
+        <!-- Плановий час прибуття -->
+        <VBox spacing="4.0">
+            <Label text="📅 Плановий час прибуття" style="-fx-font-size: 11px; -fx-text-fill: #666; -fx-font-weight: bold;" />
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <DatePicker fx:id="dpPlannedArrival" promptText="Дата" prefWidth="140.0"
+                            style="-fx-background-radius: 4; -fx-font-size: 11px;" />
+                <TextField fx:id="txtPlannedArrivalTime" promptText="HH:mm" prefWidth="70.0"
+                           style="-fx-background-color: white; -fx-background-radius: 4; -fx-border-color: #E0E0E0; -fx-border-radius: 4; -fx-padding: 6; -fx-font-size: 11px;" />
+                <Label text="(формат: 14:30)" style="-fx-font-size: 10px; -fx-text-fill: #999;" />
+            </HBox>
+        </VBox>
+        
+        <!-- Фактичний час прибуття -->
+        <VBox spacing="4.0">
+            <Label text=" Фактичний час прибуття" style="-fx-font-size: 11px; -fx-text-fill: #666; -fx-font-weight: bold;" />
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <DatePicker fx:id="dpActualArrival" promptText="Дата" prefWidth="140.0"
+                            style="-fx-background-radius: 4; -fx-font-size: 11px;" />
+                <TextField fx:id="txtActualArrivalTime" promptText="HH:mm" prefWidth="70.0"
+                           style="-fx-background-color: white; -fx-background-radius: 4; -fx-border-color: #E0E0E0; -fx-border-radius: 4; -fx-padding: 6; -fx-font-size: 11px;" />
+                <Label text="(формат: 14:30)" style="-fx-font-size: 10px; -fx-text-fill: #999;" />
+            </HBox>
+        </VBox>
+        
+        <!-- Фактичний час від'їзду -->
+        <VBox spacing="4.0">
+            <Label text=" Фактичний час від'їзду" style="-fx-font-size: 11px; -fx-text-fill: #666; -fx-font-weight: bold;" />
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <DatePicker fx:id="dpActualDeparture" promptText="Дата" prefWidth="140.0"
+                            style="-fx-background-radius: 4; -fx-font-size: 11px;" />
+                <TextField fx:id="txtActualDepartureTime" promptText="HH:mm" prefWidth="70.0"
+                           style="-fx-background-color: white; -fx-background-radius: 4; -fx-border-color: #E0E0E0; -fx-border-radius: 4; -fx-padding: 6; -fx-font-size: 11px;" />
+                <Label text="(формат: 14:30)" style="-fx-font-size: 10px; -fx-text-fill: #999;" />
+            </HBox>
+        </VBox>
+        
+        <Label text=" Координати використовуються для точного позиціювання. Час — для відстеження виконання маршруту."
+               wrapText="true"
+               style="-fx-font-size: 10px; -fx-text-fill: #999; -fx-font-style: italic;" />
+    </VBox>
+
+    <!-- Кнопки -->
+    <HBox spacing="15.0" alignment="CENTER" style="-fx-padding: 10 0 0 0;">
+        <children>
+            <Button onAction="#handleOk" text=" Зберегти" prefWidth="140.0"
+                    style="-fx-background-color: linear-gradient(to bottom, #4CAF50, #45a049); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 12 20; -fx-font-size: 14px;" />
+            <Button onAction="#handleCancel" text=" Скасувати" prefWidth="140.0"
+                    style="-fx-background-color: linear-gradient(to bottom, #FF6B6B, #FF5252); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 12 20; -fx-font-size: 14px;" />
+        </children>
+    </HBox>
+
+</VBox>
