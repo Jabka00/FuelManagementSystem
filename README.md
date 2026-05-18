@@ -138,31 +138,6 @@ API_BASE_URL=http://your-server-ip:8080/api/v1/
 
 ---
 
-## API Endpoints
-
-### Рейси (Trips)
-
-| Метод | Endpoint | Опис |
-|-------|----------|------|
-| GET | `/api/v1/trips` | Отримати всі рейси |
-| GET | `/api/v1/trips/{id}` | Отримати рейс за ID |
-| POST | `/api/v1/trips` | Створити новий рейс |
-| PUT | `/api/v1/trips/{id}/start` | Розпочати рейс |
-| PUT | `/api/v1/trips/{id}/finish` | Завершити рейс |
-
-### Водії (Drivers)
-
-| Метод | Endpoint | Опис |
-|-------|----------|------|
-| GET | `/api/v1/drivers` | Отримати всіх водіїв |
-| GET | `/api/v1/drivers/{id}` | Отримати водія за ID |
-
-### Транспорт (Vehicles)
-
-| Метод | Endpoint | Опис |
-|-------|----------|------|
-| GET | `/api/v1/vehicles` | Отримати всі транспортні засоби |
-| GET | `/api/v1/vehicles/{id}` | Отримати транспорт за ID |
 
 ---
 
